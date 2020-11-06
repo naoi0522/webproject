@@ -16,7 +16,9 @@ def post():
 
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
-    return render_template('quiz.html')
+    if request.method == "POST":
+        ans = request.form['ans']
+        return render_template('quiz.html', ans=ans)
 
 
 if __name__ == '__main__':

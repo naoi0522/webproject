@@ -2,11 +2,12 @@
 {% block content %}
 <div class="text">
     問題文
+    ans = {{ans}}
 </div>
 <div class="button">
     <form action="/quiz" method="POST">
-        <button type="submit" name="A" value="0">A</button>
-        <button type="submit" name="B" value="1">B</button>
+        <button type="submit" name="ans" value="0">A</button>
+        <button type="submit" name="ans" value="1">B</button>
     </form>
 </div>
 {% endblock %}
