@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="form">
+    <form action="/login" method="post">
+        <label for="userID">ユーザID</label>
+        <input type="text" id="userID" name="userID">
+        <label for="passwd">パスワード</label>
+        <input type="password" id="passwd" name="passwd">
+        <button type="submit">ログイン</button>
+    </form>
+</div>
+<div class="buttons">
+    <button onclick="location.href='history.back()'">戻る</button>
+</div>
+{% endblock %}

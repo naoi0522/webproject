@@ -19,6 +19,18 @@ def quiz():
     if request.method == "POST":
         ans = request.form['ans']
         return render_template('quiz.html', ans=ans)
+    else:
+        return render_template('quiz.html')
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        userID = request.form['userID']
+        passwd = request.form['passwd']
+        return render_template('login.html', userID=userID, passwd=passwd)
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':
