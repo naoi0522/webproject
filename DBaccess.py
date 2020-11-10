@@ -5,6 +5,17 @@ class DBaccess:
     def __init__(self):
         self.conn = DBconnect()
 
+    def quiz_count(self):
+        self.cur = self.conn.connect()
+
+        sql = "SELECT COUNT(*) FROM quiz"
+        self.cur.execute(sql)
+        rows = self.cur.fetchall()
+
+        self.conn.close()
+
+        return rows[0][0]
+
     def select(self):
         self.cur = self.conn.connect()
 
