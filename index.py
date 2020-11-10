@@ -1,15 +1,13 @@
 from flask import *
-from DBconnect import *
+from DBaccess import *
 import mysql.connector
 
 app = Flask(__name__)
-conn = DBconnect()
+dbac = DBaccess()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    conn.connect()
-    conn.close()
     return render_template('index.html')
 
 
