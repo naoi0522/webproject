@@ -23,6 +23,16 @@ def quiz():
         return render_template('quiz.html')
 
 
+@app.route('/addquiz', methods=['GET', 'POST'])
+def addquiz():
+    if request.method == "POST":
+        problem = request.form['problem']
+        correct = request.form['correct']
+        return render_template('addquiz.html')
+    else:
+        return render_template('addquiz.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
