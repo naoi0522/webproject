@@ -1,11 +1,7 @@
 from flask import *
-from DBaccess import *
-from QuizManage import *
 import mysql.connector
 
 app = Flask(__name__)
-dbac = DBaccess()
-qmng = QuizManage(dbac)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -22,7 +18,6 @@ def post():
 
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
-    qmng.select_quiz()
     if request.method == "POST":
         ans = request.form['ans']
         return render_template('quiz.html', ans=ans)
