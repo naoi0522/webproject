@@ -1,19 +1,17 @@
 from flask import *
-import mysql.connector
+from database import init_db
+from models.quiz import Quiz
+from models.user import User
+import config
 
 app = Flask(__name__)
+app.config.from_object('config.Config')
+init_db(app)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
-
-
-@app.route('/post', methods=['GET', 'POST'])
-def post():
-    if request.method == "POST":
-        name = request.form['name']
-        return render_template('index.html', name=name)
 
 
 @app.route('/quiz', methods=['GET', 'POST'])
