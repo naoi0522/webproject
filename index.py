@@ -2,11 +2,13 @@ from flask import *
 from database import init_db
 from models.quiz import Quiz
 from models.user import User
+from quizmanage import *
 import config
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
 init_db(app)
+qmng = QuizManage()
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,14 +25,15 @@ def quiz():
         return render_template('quiz.html')
 
 
-@app.route('/addquiz', methods=['GET', 'POST'])
-def addquiz():
+@app.route('/registerquiz', methods=['GET', 'POST'])
+def registerquiz():
     if request.method == "POST":
         problem = request.form['problem']
-        correct = request.form['correct']
-        return render_template('addquiz.html')
+        correct = int(request.form['correct'])
+        qmng.register_quiz(problem, correct)
+        return render_template('registerquiz.html')
     else:
-        return render_template('addquiz.html')
+        return render_template('registerquiz.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

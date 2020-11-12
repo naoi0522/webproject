@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="form">
-    <form action="/addquiz" method="post">
+    <form action="/registerquiz" method="post">
         <label for="problem">問題文</label>
         <input type="text" id="problem" name="problem">
         <label for="true">〇</label>
-        <input type="radio" id="true" name="correct" value="true" checked>
+        <input type="radio" id="true" name="correct" value="1" checked>
         <label for="false">×</label>
-        <input type="radio" id="false" name="correct" value="false">
+        <input type="radio" id="false" name="correct" value="0">
         <button type="submit">追加</button>
     </form>
 </div>
