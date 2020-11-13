@@ -9,20 +9,22 @@ class Quiz(db.Model):
     problem = db.Column(db.String(100))
     correct = db.Column(db.Boolean)
 
-    @classmethod
-    def get_quiz_all(cls):
-        quiz_list = db.session.query.all()
+    def get_quiz_one(self, id):
+        quiz = db.session.query(Quiz).get(id)
+
+        return quiz
+
+    def get_quiz_all(self):
+        quiz_list = db.session.query(Quiz).all()
 
         return quiz_list
 
-    @classmethod
-    def quiz_count(cls):
-        quiz_count = db.session.query.count()
+    def quiz_count(self):
+        quiz_count = db.session.query(Quiz).count()
 
         return quiz_count
 
-    @classmethod
-    def register_quiz(cls, quizID, problem, correct):
+    def register_quiz(self, quizID, problem, correct):
         record = Quiz(
             quizID=quizID,
             problem=problem,
