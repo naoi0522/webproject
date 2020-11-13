@@ -1,13 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="text">
-    問題文
-    ans = {{ans}}
+<div class="quiznum">
+    第{{quiz_num}}問
 </div>
-<div class="button">
+<div class="problem">
+    {{problem}}
+</div>
+{% if not answered %}
+<div class="ans_button">
     <form action="/quiz" method="POST">
-        <button type="submit" name="ans" value="0">A</button>
-        <button type="submit" name="ans" value="1">B</button>
+        <button type="submit" name="ans" value="True">〇</button>
+        <button type="submit" name="ans" value="False">×</button>
     </form>
 </div>
+{% else %}
+<div class="your_answer">
+あなたの答え : 
+    {% if ans == "True" %}
+〇
+    {% else %}
+×
+    {% endif %}
+</div>
+<div class="result">
+    {% if result %}
+正解
+    {% else %}
+不正解
+    {% endif %}
+</div>
+<div class="buttons">
+    {% if quiz_num < 10 %}
+    <button onclick="location.href='./quiz'">次へ</button>
+    {% else %}
+    <button onclick="location.href='./result'">結果へ</button>
+    {% endif %}
+</div>
+{% endif %}
+
 {% endblock %}
