@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="form">
-    <form action="/registerquiz" method="post">
+    <form action="/registerquiz" method="post" autocomplete="off">
         <label for="problem">問題文</label>
-        <input type="text" id="problem" name="problem">
+        <textarea id="problem" name="problem" rows="5" cols="40" maxlength="100">(例)主キー以外は外部キー？</textarea>
         <label for="true">〇</label>
         <input type="radio" id="true" name="correct" value="1" checked>
         <label for="false">×</label>
         <input type="radio" id="false" name="correct" value="0">
-        <button type="submit">追加</button>
+        <button type="submit">登録</button>
     </form>
 </div>
 <div class="buttons">
