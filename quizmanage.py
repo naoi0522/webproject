@@ -1,4 +1,3 @@
-from sqlalchemy.sql.elements import Null
 from models.quiz import Quiz
 import random
 
@@ -7,29 +6,51 @@ class QuizManage():
 
     def __init__(self):
         self.quiz = Quiz()
-        self.quiz_num = 0
-        self.quiz_order()
-        # self.count = self.quiz.quiz_count() self.quiz.quiz_countがエラーになる
 
-    def quiz_order(self):
-        self.order = list(range(10))
+    def new_quiz(self):
+        self.quiz_num = 0
+        self.correct_total = 0
+        self.set_quiz_count()
+        self.set_order()
+
+    def set_quiz_count(self):
+        self.count = self.quiz.quiz_count()
+
+    def set_order(self):
+        self.order = list(range(self.count))
         random.shuffle(self.order)
 
-    def next_quiz(self):
+    def get_next_quiz(self):
         if self.quiz_num < 10:
-            quiz = self.get_quiz(self.order[self.quiz_num])
+            self.current_quiz = self.get_quiz(self.order[self.quiz_num] + 1)
             self.quiz_num += 1
+
+            return self.quiz_num, self.current_quiz.problem
         else:
             self.quiz_num = 0
-            quiz = Null
-
-        return quiz
+            return self.quiz_num, None
 
     def get_quiz(self, id):
-        quiz = self.quiz.get_quiz_one(1)  # testcode
+        quiz = self.quiz.get_quiz_one(id)
 
-        print(quiz.problem)
         return quiz
+
+    def get_correct_total(self):
+        return self.correct_total
+
+    def judge(self, ans):
+        if ans == "True":
+            ans = True
+        else:
+            ans = False
+
+        if ans == self.current_quiz.correct:
+            result = True
+            self.correct_total += 1
+        else:
+            result = False
+
+        return result, self.quiz_num, self.current_quiz.problem
 
     def register_quiz(self, problem, correct):
         id = self.quiz.quiz_count() + 1
