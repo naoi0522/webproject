@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="form">
+    <form action="/auth/registeruser" method="post" autocomplete="off">
+        <label for="userID">ユーザID</label>
+        <input type="text" id="userID" name="userID" maxlength="20" required>
+        <label for="passwd">パスワード</label>
+        <input type="password" id="passwd" name="passwd" maxlength="20" required>
+        <button type="submit">新規登録</button>
+    </form>
+</div>
+{% if is_post %}
+<div class="success">
+    {% if success %}
+登録に成功しました。
+ようこそ、{{userID}}さん。
+    {% else %}
+登録に失敗しました。
+ユーザID:{{userID}}は既に存在します。
+    {% endif %}
+</div>
+{% endif %}
+<div class="buttons">
+    <button onclick="location.href='./../'">戻る</button>
+</div>
+{% endblock %}
