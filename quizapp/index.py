@@ -1,8 +1,8 @@
 from flask import *
-from database import init_db
-import models
-from quizmanage import *
-import config
+from quizapp.database import init_db
+import quizapp.models
+from quizapp.quizmanage import *
+import quizapp.config
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
