@@ -1,4 +1,4 @@
-from database import db
+from quizapp.database import db
 
 
 class Quiz(db.Model):

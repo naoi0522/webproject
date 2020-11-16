@@ -1,4 +1,4 @@
-from models.quiz import Quiz
+from quizapp.models.quiz import Quiz
 import random
 
 

@@ -1,5 +1,5 @@
 from sqlalchemy.sql.schema import PrimaryKeyConstraint
-from database import db
+from quizapp.database import db
 
 
 class User(db.Model):
