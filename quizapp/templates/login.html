@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="form">
-    <form action="/login" method="post">
+    <form action="/login" method="post" autocomplete="off">
         <label for="userID">ユーザID</label>
-        <input type="text" id="userID" name="userID">
+        <input type="text" id="userID" name="userID" maxlength="20" required>
         <label for="passwd">パスワード</label>
-        <input type="password" id="passwd" name="passwd">
+        <input type="password" id="passwd" name="passwd" maxlength="20" required>
         <button type="submit">ログイン</button>
     </form>
 </div>
