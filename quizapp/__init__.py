@@ -56,4 +56,7 @@ def create_app(test_config=None):
         else:
             return render_template('login.html')
 
+    from . import auth
+    app.register_blueprint(auth.bp)
+
     return app
