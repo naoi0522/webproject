@@ -30,13 +30,19 @@ def login():
     if request.method == "POST":
         userID = request.form['userID']
         passwd = request.form['passwd']
-        session['userID'] = userID
+
+        success = umng.authenticate_user(userID, passwd)
+
+        if success:
+            session['userID'] = userID
+        else:
+            session['userID'] = None
 
         return render_template('auth/login.html',
-                               current_userID=session['userID'], userID=userID, passwd=passwd)
+                               current_userID=session['userID'], is_post=True, userID=userID, success=success)
     else:
         return render_template('auth/login.html',
-                               current_userID=session['userID'])
+                               current_userID=session['userID'], is_post=False)
 
 
 @bp.route('/logout', methods=['GET', 'POST'])

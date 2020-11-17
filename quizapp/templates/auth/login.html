@@ -9,6 +9,16 @@
         <button type="submit">ログイン</button>
     </form>
 </div>
+{% if is_post %}
+<div class="success">
+    {% if success %}
+ログインに成功しました。
+ようこそ、{{userID}}さん。
+    {% else %}
+ログインに失敗しました。
+    {% endif %}
+</div>
+{% endif %}
 <div class="buttons">
     <button onclick="location.href='./../'">戻る</button>
 </div>
