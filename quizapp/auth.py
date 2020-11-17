@@ -18,11 +18,16 @@ def register_user():
 
         success = umng.register_user(userID, passwd)
 
+        if success:
+            session['userID'] = userID
+        else:
+            session['userID'] = None
+
         return render_template('auth/registeruser.html',
-                               current_userID=session['userID'], is_post=True, userID=userID, success=success)
+                               title="ユーザ登録", current_userID=session['userID'], is_post=True, userID=userID, success=success)
     else:
         return render_template('auth/registeruser.html',
-                               current_userID=session['userID'], is_post=False)
+                               title="ユーザ登録", current_userID=session['userID'], is_post=False)
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -39,10 +44,10 @@ def login():
             session['userID'] = None
 
         return render_template('auth/login.html',
-                               current_userID=session['userID'], is_post=True, userID=userID, success=success)
+                               title="ログイン", current_userID=session['userID'], is_post=True, userID=userID, success=success)
     else:
         return render_template('auth/login.html',
-                               current_userID=session['userID'], is_post=False)
+                               title="ログイン", current_userID=session['userID'], is_post=False)
 
 
 @bp.route('/logout', methods=['GET', 'POST'])

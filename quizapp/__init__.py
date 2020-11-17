@@ -21,7 +21,7 @@ def create_app(test_config=None):
         if not 'userID' in session:
             session['userID'] = None
         return render_template('index.html',
-                               current_userID=session['userID'])
+                               title="メインページ", current_userID=session['userID'])
 
     @app.route('/quiz', methods=['GET', 'POST'])
     def quiz():
@@ -29,17 +29,17 @@ def create_app(test_config=None):
             ans = request.form['ans']
             result, quiz_num, problem = qmng.judge(ans)
             return render_template('quiz.html',
-                                   current_userID=session['userID'], answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
+                                   title="クイズ", current_userID=session['userID'], answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
         else:
             quiz_num, problem = qmng.get_next_quiz()
             return render_template('quiz.html',
-                                   current_userID=session['userID'], answered=False, quiz_num=quiz_num, problem=problem)
+                                   title="クイズ", current_userID=session['userID'], answered=False, quiz_num=quiz_num, problem=problem)
 
     @app.route('/result', methods=['GET'])
     def result():
         total = qmng.get_correct_total()
         return render_template('result.html',
-                               current_userID=session['userID'], total=total)
+                               title="結果発表", current_userID=session['userID'], total=total)
 
     @app.route('/registerquiz', methods=['GET', 'POST'])
     def registerquiz():
@@ -49,11 +49,13 @@ def create_app(test_config=None):
 
             qmng.register_quiz(problem, correct)
 
+            # TODO 入力値の制限(空白など),登録可否での処理の変更
+
             return render_template('registerquiz.html',
-                                   current_userID=session['userID'])
+                                   title="クイズ登録", current_userID=session['userID'])
         else:
             return render_template('registerquiz.html',
-                                   current_userID=session['userID'])
+                                   title="クイズ登録", current_userID=session['userID'])
 
     from . import auth
     app.register_blueprint(auth.bp)
