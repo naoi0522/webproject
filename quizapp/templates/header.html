@@ -1,0 +1,10 @@
+{% block header %}
+<header>
+header
+{% if not current_userID == None %}
+ログイン中 : {{current_userID}}
+{% else %}
+ログインしていません。
+{% endif %}
+</header>
+{% endblock %}

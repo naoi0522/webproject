@@ -18,6 +18,29 @@ def register_user():
 
         success = umng.register_user(userID, passwd)
 
-        return render_template('auth/registeruser.html', is_post=True, userID=userID, success=success)
+        return render_template('auth/registeruser.html',
+                               current_userID=session['userID'], is_post=True, userID=userID, success=success)
     else:
-        return render_template('auth/registeruser.html', is_post=False)
+        return render_template('auth/registeruser.html',
+                               current_userID=session['userID'], is_post=False)
+
+
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        userID = request.form['userID']
+        passwd = request.form['passwd']
+        session['userID'] = userID
+
+        return render_template('auth/login.html',
+                               current_userID=session['userID'], userID=userID, passwd=passwd)
+    else:
+        return render_template('auth/login.html',
+                               current_userID=session['userID'])
+
+
+@bp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('userID', None)
+
+    return redirect(url_for('index'))

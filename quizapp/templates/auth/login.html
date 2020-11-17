@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="form">
-    <form action="/login" method="post" autocomplete="off">
+    <form action="/auth/login" method="post" autocomplete="off">
         <label for="userID">ユーザID</label>
         <input type="text" id="userID" name="userID" maxlength="20" required>
         <label for="passwd">パスワード</label>
@@ -10,6 +10,6 @@
     </form>
 </div>
 <div class="buttons">
-    <button onclick="location.href='./'">戻る</button>
+    <button onclick="location.href='./../'">戻る</button>
 </div>
 {% endblock %}

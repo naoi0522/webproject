@@ -11,28 +11,35 @@ qmng = QuizManage()
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object('quizapp.config.Config')
+    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
     init_db(app)
 
     @app.route('/', methods=['GET', 'POST'])
     def index():
         qmng.new_quiz()
-        return render_template('index.html')
+        if not 'userID' in session:
+            session['userID'] = None
+        return render_template('index.html',
+                               current_userID=session['userID'])
 
     @app.route('/quiz', methods=['GET', 'POST'])
     def quiz():
         if request.method == "POST":
             ans = request.form['ans']
             result, quiz_num, problem = qmng.judge(ans)
-            return render_template('quiz.html', answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
+            return render_template('quiz.html',
+                                   current_userID=session['userID'], answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
         else:
             quiz_num, problem = qmng.get_next_quiz()
-            return render_template('quiz.html', answered=False, quiz_num=quiz_num, problem=problem)
+            return render_template('quiz.html',
+                                   current_userID=session['userID'], answered=False, quiz_num=quiz_num, problem=problem)
 
     @app.route('/result', methods=['GET'])
     def result():
         total = qmng.get_correct_total()
-        return render_template('result.html', total=total)
+        return render_template('result.html',
+                               current_userID=session['userID'], total=total)
 
     @app.route('/registerquiz', methods=['GET', 'POST'])
     def registerquiz():
@@ -42,19 +49,11 @@ def create_app(test_config=None):
 
             qmng.register_quiz(problem, correct)
 
-            return render_template('registerquiz.html')
+            return render_template('registerquiz.html',
+                                   current_userID=session['userID'])
         else:
-            return render_template('registerquiz.html')
-
-    @app.route('/login', methods=['GET', 'POST'])
-    def login():
-        if request.method == "POST":
-            userID = request.form['userID']
-            passwd = request.form['passwd']
-
-            return render_template('login.html', userID=userID, passwd=passwd)
-        else:
-            return render_template('login.html')
+            return render_template('registerquiz.html',
+                                   current_userID=session['userID'])
 
     from . import auth
     app.register_blueprint(auth.bp)
