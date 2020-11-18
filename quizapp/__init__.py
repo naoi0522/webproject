@@ -22,6 +22,7 @@ def create_app(test_config=None):
             session['userID'] = None
         return render_template('index.html',
                                title="メインページ", current_userID=session['userID'])
+# TODO quizのblueprint化
 
     @app.route('/quiz', methods=['GET', 'POST'])
     def quiz():
@@ -29,11 +30,13 @@ def create_app(test_config=None):
             ans = request.form['ans']
             result, quiz_num, problem = qmng.judge(ans)
             return render_template('quiz.html',
-                                   title="クイズ", current_userID=session['userID'], answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
+                                   title="クイズ", current_userID=session['userID'], answered=True,
+                                   quiz_num=quiz_num, problem=problem, ans=ans, result=result)
         else:
             quiz_num, problem = qmng.get_next_quiz()
             return render_template('quiz.html',
-                                   title="クイズ", current_userID=session['userID'], answered=False, quiz_num=quiz_num, problem=problem)
+                                   title="クイズ", current_userID=session['userID'], answered=False,
+                                   quiz_num=quiz_num, problem=problem)
 
     @app.route('/result', methods=['GET'])
     def result():
@@ -46,8 +49,9 @@ def create_app(test_config=None):
         if request.method == "POST":
             problem = request.form['problem']
             correct = int(request.form['correct'])
+            userID = session['userID']
 
-            qmng.register_quiz(problem, correct)
+            qmng.register_quiz(problem, correct, userID)
 
             # TODO 入力値の制限(空白など),登録可否での処理の変更
 

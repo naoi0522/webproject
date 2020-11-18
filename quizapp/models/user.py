@@ -8,19 +8,20 @@ class User(db.Model):
 
     userID = db.Column(db.String(20), primary_key=True)
     password = db.Column(db.String(20))
+    quizs = db.relationship('Quiz', backref='user')
 
     def get_user_one(self, userID):
-        user = db.session.query(User).get(userID)
+        user = User.query.get(userID)
 
         return user
 
     def get_user_all(self):
-        user_list = db.session.query(User).all()
+        user_list = User.query.all()
 
         return user_list
 
     def user_count(self):
-        user_count = db.session.query(User).count()
+        user_count = User.query.count()
 
         return user_count
 

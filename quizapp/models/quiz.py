@@ -5,30 +5,37 @@ class Quiz(db.Model):
 
     __tablename__ = 'quizs'
 
-    quizID = db.Column(db.Integer, primary_key=True)
+    quizID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     problem = db.Column(db.String(100))
     correct = db.Column(db.Boolean)
+    userID = db.Column(db.String(20), db.ForeignKey('users.userID'))
 
     def get_quiz_one(self, id):
-        quiz = db.session.query(Quiz).get(id)
+        quiz = Quiz.query.get(id)
 
         return quiz
 
     def get_quiz_all(self):
-        quiz_list = db.session.query(Quiz).all()
+        quiz_list = Quiz.query.all()
 
         return quiz_list
 
+    def get_id_all(self):
+        fetch_id_list = Quiz.query.all()
+        id_list = list(map(lambda x: x.quizID, fetch_id_list))
+
+        return id_list
+
     def quiz_count(self):
-        quiz_count = db.session.query(Quiz).count()
+        quiz_count = Quiz.query.count()
 
         return quiz_count
 
-    def register_quiz(self, quizID, problem, correct):
+    def register_quiz(self, problem, correct, userID):
         record = Quiz(
-            quizID=quizID,
             problem=problem,
-            correct=correct
+            correct=correct,
+            userID=userID
         )
 
         db.session.add(record)

@@ -1,4 +1,5 @@
 from quizapp.models.quiz import Quiz
+from sqlalchemy.sql.expression import func, select
 import random
 
 
@@ -10,19 +11,17 @@ class QuizManage():
     def new_quiz(self):
         self.quiz_num = 0
         self.correct_total = 0
-        self.set_quiz_count()
         self.set_order()
 
     def set_quiz_count(self):
         self.count = self.quiz.quiz_count()
 
     def set_order(self):
-        self.order = list(range(self.count))
-        random.shuffle(self.order)
+        self.order = random.sample(self.quiz.get_id_all(), 2)
 
     def get_next_quiz(self):
         if self.quiz_num < 10:
-            self.current_quiz = self.get_quiz(self.order[self.quiz_num] + 1)
+            self.current_quiz = self.get_quiz(self.order[self.quiz_num])
             self.quiz_num += 1
 
             return self.quiz_num, self.current_quiz.problem
@@ -52,7 +51,6 @@ class QuizManage():
 
         return result, self.quiz_num, self.current_quiz.problem
 
-    def register_quiz(self, problem, correct):
-        id = self.quiz.quiz_count() + 1
+    def register_quiz(self, problem, correct, userID):
 
-        self.quiz.register_quiz(id, problem, correct)
+        self.quiz.register_quiz(problem, correct, userID)
