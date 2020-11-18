@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="form">
-    <form action="/registerquiz" method="post" autocomplete="off">
+    <form action="/quiz/registerquiz" method="post" autocomplete="off">
         <label for="problem">問題文</label>
         <textarea id="problem" name="problem" rows="5" cols="40" maxlength="100">(例)主キー以外は外部キー？</textarea>
         <label for="true">〇</label>
@@ -12,6 +12,6 @@
     </form>
 </div>
 <div class="buttons">
-    <button onclick="location.href='./'">戻る</button>
+    <button onclick="location.href='./../'">戻る</button>
 </div>
 {% endblock %}

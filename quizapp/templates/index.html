@@ -2,13 +2,13 @@
 {% block content %}
 {% if login %}
 <div class="buttons">
-    <button onclick="location.href='./quiz'">クイズ</button>
+    <button onclick="location.href='./quiz/newquiz'">クイズ</button>
     <button onclick="location.href='./auth/logout'">ログアウト</button>
-    <button onclick="location.href='./registerquiz'">クイズ登録</button>
+    <button onclick="location.href='./quiz/registerquiz'">クイズ登録</button>
 </div>
 {% else %}
 <div class="buttons">
-    <button onclick="location.href='./quiz'">クイズ</button>
+    <button onclick="location.href='./quiz/newquiz'">クイズ</button>
     <button onclick="location.href='./auth/login'">ログイン</button>
     <button onclick="location.href='./auth/registeruser'">ユーザ登録</button>
 </div>
