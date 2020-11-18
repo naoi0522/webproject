@@ -16,18 +16,18 @@ def register_user():
         userID = request.form['userID']
         passwd = request.form['passwd']
 
-        success = umng.register_user(userID, passwd)
+        session['login'] = umng.register_user(userID, passwd)
 
-        if success:
+        if session['login']:
             session['userID'] = userID
         else:
             session['userID'] = None
 
         return render_template('auth/registeruser.html',
-                               title="ユーザ登録", current_userID=session['userID'], is_post=True, userID=userID, success=success)
+                               title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=True, userID=userID)
     else:
         return render_template('auth/registeruser.html',
-                               title="ユーザ登録", current_userID=session['userID'], is_post=False)
+                               title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=False)
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -36,22 +36,23 @@ def login():
         userID = request.form['userID']
         passwd = request.form['passwd']
 
-        success = umng.authenticate_user(userID, passwd)
+        session['login'] = umng.authenticate_user(userID, passwd)
 
-        if success:
+        if session['login']:
             session['userID'] = userID
         else:
             session['userID'] = None
 
         return render_template('auth/login.html',
-                               title="ログイン", current_userID=session['userID'], is_post=True, userID=userID, success=success)
+                               title="ログイン", current_userID=session['userID'], login=session['login'], is_post=True, userID=userID)
     else:
         return render_template('auth/login.html',
-                               title="ログイン", current_userID=session['userID'], is_post=False)
+                               title="ログイン", current_userID=session['userID'], login=session['login'], is_post=False)
 
 
 @bp.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('userID', None)
+    session['login'] = False
 
     return redirect(url_for('index'))

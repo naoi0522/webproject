@@ -1,7 +1,7 @@
 {% block header %}
 <header>
 header
-{% if not current_userID == None %}
+{% if login %}
 ログイン中 : {{current_userID}}
 {% else %}
 ログインしていません。
