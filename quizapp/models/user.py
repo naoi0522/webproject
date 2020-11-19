@@ -33,3 +33,15 @@ class User(db.Model):
 
         db.session.add(record)
         db.session.commit()
+
+    def change_password(self, userID, password):
+        user = self.get_quiz_one(userID)
+
+        user.password = password
+
+        db.session.commit()
+
+    def delete_user(self, userID):
+        self.get_user_one(userID).delete()
+
+        db.session.commit()
