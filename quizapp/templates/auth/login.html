@@ -2,11 +2,17 @@
 {% block content %}
 <div class="form">
     <form action="/auth/login" method="post" autocomplete="off">
-        <label for="userID">ユーザID</label>
-        <input type="text" id="userID" name="userID" maxlength="20" required>
-        <label for="passwd">パスワード</label>
-        <input type="password" id="passwd" name="passwd" maxlength="20" required>
-        <button type="submit">ログイン</button>
+        <div class="input_text">
+            <label for="userID">ユーザID</label>
+            <input type="text" id="userID" name="userID" maxlength="20" required>
+        </div>
+        <div class="input_text">
+            <label for="passwd">パスワード</label>
+            <input type="password" id="passwd" name="passwd" maxlength="20" required>
+        </div>
+        <div class="buttons">
+            <button type="submit">ログイン</button>
+        </div>
     </form>
 </div>
 {% if is_post %}

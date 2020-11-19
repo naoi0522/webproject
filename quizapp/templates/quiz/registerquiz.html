@@ -2,13 +2,19 @@
 {% block content %}
 <div class="form">
     <form action="/quiz/registerquiz" method="post" autocomplete="off">
-        <label for="problem">問題文(6文字以上100文字以下)</label>
-        <textarea id="problem" name="problem" rows="5" cols="40" minlength="6" maxlength="100">(例)主キー以外は外部キー？</textarea>
-        <label for="true">〇</label>
-        <input type="radio" id="true" name="correct" value="1" checked>
-        <label for="false">×</label>
-        <input type="radio" id="false" name="correct" value="0">
-        <button type="submit">登録</button>
+        <div class="problem">
+            <label for="problem">問題文(6文字以上100文字以下)</label>
+            <textarea id="problem" name="problem" rows="5" cols="40" minlength="6" maxlength="100">(例)主キー以外は外部キー？</textarea>
+        </div>
+        <div class="radio">
+            <label for="true">〇</label>
+            <input type="radio" id="true" name="correct" value="1" checked>
+            <label for="false">×</label>
+            <input type="radio" id="false" name="correct" value="0">
+        </div>
+        <div class="buttons">
+            <button type="submit">登録</button>
+        </div>
     </form>
 </div>
 {% if is_post %}
