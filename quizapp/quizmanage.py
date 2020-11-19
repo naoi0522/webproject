@@ -1,3 +1,4 @@
+from sqlalchemy.inspection import inspect
 from quizapp.models.quiz import Quiz
 from sqlalchemy.sql.expression import func, select
 import random
@@ -51,6 +52,19 @@ class QuizManage():
 
         return result, self.quiz_num, self.current_quiz.problem
 
-    def register_quiz(self, problem, correct, userID):
+    def check_str_length(self, problem):
+        if len(problem) >= 6:
+            return True
+        else:
+            return False
 
-        self.quiz.register_quiz(problem, correct, userID)
+    def register_quiz(self, problem, correct, userID):
+        problem = problem.replace(' ', '').replace('　', '')
+
+        print("problem = " + problem)
+
+        if self.check_str_length(problem):
+            #self.quiz.register_quiz(problem, correct, userID)
+            return True
+        else:
+            return False
