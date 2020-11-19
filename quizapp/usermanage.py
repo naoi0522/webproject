@@ -6,7 +6,7 @@ class UserManage():
     def __init__(self):
         self.user = User()
 
-    def duplication_check(self, userID):
+    def check_duplication(self, userID):
         duplicate = self.user.get_user_one(userID)
 
         if not duplicate == None:
@@ -15,13 +15,13 @@ class UserManage():
             return False
 
     def register_user(self, userID, passwd):
-        if not self.duplication_check(userID):
+        if not self.check_duplication(userID):
             #self.user.register_user(userID, passwd)
             return True
         else:
             return False
 
-    def password_check(self, userID, passwd):
+    def check_password(self, userID, passwd):
         saved_user = self.user.get_user_one(userID)
 
         if saved_user.password == passwd:
@@ -30,8 +30,8 @@ class UserManage():
             return False
 
     def authenticate_user(self, userID, passwd):
-        if self.duplication_check(userID):
-            if self.password_check(userID, passwd):
+        if self.check_duplication(userID):
+            if self.check_password(userID, passwd):
                 return True
             else:
                 return False
