@@ -23,16 +23,13 @@ def create_app(test_config=None):
         return render_template('index.html',
                                title="メインページ", current_userID=session['userID'], login=session['login'])
 
-    @app.route('/mypage', methods=['GET'])
-    def mypage():
-
-        return render_template('mypage.html',
-                               title="マイページ", current_userID=session['userID'], login=session['login'])
-
     from . import auth
     app.register_blueprint(auth.bp)
 
     from . import quiz
     app.register_blueprint(quiz.bp)
+
+    from . import mypage
+    app.register_blueprint(mypage.bp)
 
     return app
