@@ -62,7 +62,7 @@ def registerquiz():
 
 
 @bp.route('/update', methods=['GET', 'POST'])
-def registerquiz():
+def updatequiz():
     if request.method == "POST":
         quizID = int(request.form['quizID'])
         problem = request.form['problem']
