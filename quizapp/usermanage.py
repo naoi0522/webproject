@@ -6,7 +6,7 @@ class UserManage():
 
     def __init__(self):
         self.user = User()
-        self.cstr = Check_String()
+        self.cstr = CheckString()
 
     def check_duplication(self, userID):
         duplicate = self.user.get_user_one(userID)
@@ -20,7 +20,7 @@ class UserManage():
         userID = self.cstr.trim_spaces(userID)
         passwd = self.cstr.trim_spaces(passwd)
 
-        if self.cstr.check_str_length(userID, 6) and self.cstr.check_str_length(passwd, 3):
+        if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
             if not self.check_duplication(userID):
                 #self.user.register_user(userID, passwd)
                 # TODO ユーザ登録on/off
@@ -40,7 +40,7 @@ class UserManage():
         userID = self.cstr.trim_spaces(userID)
         passwd = self.cstr.trim_spaces(passwd)
 
-        if self.cstr.check_str_length(userID, 6) and self.cstr.check_str_length(passwd, 3):
+        if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
             if self.check_duplication(userID):
                 if self.check_password(userID, passwd):
                     return True

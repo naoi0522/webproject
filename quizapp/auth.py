@@ -84,7 +84,7 @@ def logout():
     session['login'] = False
 
     login_status = bjson.build_login_status(
-        session['userID'], session['login'])
+        None, session['login'])
 
     # return jsonify(login_status)
 

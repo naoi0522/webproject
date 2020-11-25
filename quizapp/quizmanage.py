@@ -9,7 +9,7 @@ class QuizManage():
 
     def __init__(self):
         self.quiz = Quiz()
-        self.cstr = Check_String()
+        self.cstr = CheckString()
 
     def new_quiz(self):
         self.quiz_num = 0
