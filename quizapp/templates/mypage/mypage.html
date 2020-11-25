@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class=profile>
+    <div class="userID">
+userID : {{current_userID}}
+    </div>
+    <div class="quiz_list">
+        {% for quiz in quiz_list %}
+            {% if quiz.correct == 1 %}
+                {% set correct = "〇" %}
+            {% else %}
+                {% set correct = "×" %}
+            {% endif %}
+{{quiz.problem}}:{{correct}}<br>
+        {% endfor %}
+    </div>
+</div>
+<div class="buttons">
+    <button onclick="location.href='./../'">戻る</button>
+</div>
+{% endblock %}

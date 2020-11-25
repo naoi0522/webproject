@@ -52,12 +52,28 @@ def registerquiz():
 
         correct = qmng.register_quiz(problem, correct, userID)
 
-        # TODO 入力値の制限(空白など)
-
         return render_template('quiz/registerquiz.html',
                                title="クイズ登録", current_userID=session['userID'], login=session['login'],
                                is_post=True, correct=correct)
     else:
         return render_template('quiz/registerquiz.html',
                                title="クイズ登録", current_userID=session['userID'], login=session['login'],
+                               is_post=False)
+
+
+@bp.route('/update', methods=['GET', 'POST'])
+def updatequiz():
+    if request.method == "POST":
+        quizID = int(request.form['quizID'])
+        problem = request.form['problem']
+        correct = int(request.form['correct'])
+
+        correct = qmng.update_quiz(quizID, problem, correct)
+
+        return render_template('quiz/update.html',
+                               title="クイズ更新", current_userID=session['userID'], login=session['login'],
+                               is_post=True, correct=correct)
+    else:
+        return render_template('quiz/update.html',
+                               title="クイズ更新", current_userID=session['userID'], login=session['login'],
                                is_post=False)

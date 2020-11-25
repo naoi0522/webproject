@@ -2,11 +2,17 @@
 {% block content %}
 <div class="form">
     <form action="/auth/registeruser" method="post" autocomplete="off">
-        <label for="userID">ユーザID(3文字以上20文字以下)</label>
-        <input type="text" id="userID" name="userID" minlength="3" maxlength="20" required>
-        <label for="passwd">パスワード(6文字以上20文字以下)</label>
-        <input type="password" id="passwd" name="passwd" minlength="6" maxlength="20" required>
-        <button type="submit">新規登録</button>
+        <div class="input_text">
+            <label for="userID">ユーザID(3文字以上20文字以下)</label>
+            <input type="text" id="userID" name="userID" minlength="3" maxlength="20" required>
+        </div>
+        <div class="input_text">
+            <label for="passwd">パスワード(6文字以上20文字以下)</label>
+            <input type="password" id="passwd" name="passwd" minlength="6" maxlength="20" required>
+        </div>
+        <div class="buttons">
+            <button type="submit">ユーザ登録</button>
+        </div>
     </form>
 </div>
 {% if is_post %}

@@ -17,6 +17,7 @@ class UserManage():
     def register_user(self, userID, passwd):
         if not self.check_duplication(userID):
             #self.user.register_user(userID, passwd)
+            # TODO ユーザ登録on/off
             return True
         else:
             return False
@@ -35,5 +36,14 @@ class UserManage():
                 return True
             else:
                 return False
+        else:
+            return False
+
+    def delete_user(self, qmng, userID, passwd):
+        if self.check_password(userID, passwd):
+            qmng.delete_quiz_from_userID(userID)
+            self.user.delete_user(userID)
+
+            return True
         else:
             return False

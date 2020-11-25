@@ -15,6 +15,11 @@ class Quiz(db.Model):
 
         return quiz
 
+    def get_quiz_from_userID(self, userID):
+        quiz_list = Quiz.query.filter(Quiz.userID == userID).all()
+
+        return quiz_list
+
     def get_quiz_all(self):
         quiz_list = Quiz.query.all()
 
@@ -39,4 +44,22 @@ class Quiz(db.Model):
         )
 
         db.session.add(record)
+        db.session.commit()
+
+    def update_quiz(self, quizID, problem, correct):
+        quiz = self.get_quiz_one(quizID)
+
+        quiz.problem = problem
+        quiz.correct = correct
+
+        db.session.commit()
+
+    def delete_quiz_one(self, quizID):
+        self.get_quiz_one(quizID).delete()
+
+        db.session.commit()
+
+    def delete_quiz_from_userID(self, userID):
+        self.get_quiz_from_userID(userID).delete()
+
         db.session.commit()
