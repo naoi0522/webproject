@@ -71,7 +71,7 @@ class QuizManage():
         problem = self.trim_spaces(problem)
 
         if self.check_str_length(problem):
-            #self.quiz.register_quiz(problem, correct, userID)
+            # self.quiz.register_quiz(problem, correct, userID)
             # TODO クイズ追加on/off
             return True
         else:
