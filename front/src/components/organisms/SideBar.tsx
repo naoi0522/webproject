@@ -8,6 +8,7 @@ import {
   HomeOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 type Props = {
   currentPage: string;
@@ -20,16 +21,16 @@ const SideBar: FC<Props> = ({ currentPage = '1' }) => (
     <div className="logo" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={[currentPage]}>
       <Menu.Item key="1" icon={<HomeOutlined />}>
-        ホーム
+        <Link to="/">ホーム</Link>
       </Menu.Item>
       <Menu.Item key="2" icon={<EditOutlined />}>
-        クイズを作る
+        <Link to="/create">クイズを作る</Link>
       </Menu.Item>
       <Menu.Item key="3" icon={<CheckCircleOutlined />}>
-        クイズを解く
+        <Link to="/solve">クイズを解く</Link>
       </Menu.Item>
       <Menu.Item key="4" icon={<UserOutlined />}>
-        マイページ
+        <Link to="/users">マイページ</Link>
       </Menu.Item>
     </Menu>
   </Sider>

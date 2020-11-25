@@ -6,13 +6,16 @@ import 'antd/dist/antd.css';
 import SideBar from '../organisms/SideBar';
 import SubHeader from '../organisms/SubHeader';
 import SubFooter from '../organisms/SubFooter';
-import Home from './Home';
 
 const { Content } = Layout;
 
-const BasicPage: FC = () => (
+type Props = {
+  current: string;
+};
+
+const BasicPage: FC<Props> = ({ current, children }) => (
   <Layout>
-    <SideBar currentPage="1" />
+    <SideBar currentPage={current} />
     <Layout>
       <SubHeader />
       <Content style={{ margin: '24px 16px 0' }}>
@@ -20,12 +23,7 @@ const BasicPage: FC = () => (
           className="site-layout-background"
           style={{ padding: 24, minHeight: 800 }}
         >
-          {/* TODO: Routeによる画面切り替え */}
-          {/* TODO:ホーム画面の実装  */}
-          {/* TODO: クイズ画面の実装 */}
-          {/* TODO: クイズ解答画面の実装 */}
-          {/* TODO: マイページの実装 */}
-          <Home />
+          {children}
         </div>
       </Content>
 
