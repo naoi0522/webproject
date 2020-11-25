@@ -2,20 +2,21 @@ from flask.json import jsonify
 
 
 class BuildJSON():
-    def build_status(self, userID, login):
-        status = {
+    def build_login_status(self, userID, login):
+        login_status = {
             "userID": "{}".format(userID),
             "login": "{}".format(login)
         }
 
-        return status
+        return login_status
 
-    def build_post_status(self, is_post):
-        post_status = {
-            "is_post": "{}".format(is_post)
+    def build_status(self, method, CRUD_correct):
+        status = {
+            "method": "{}".format(method),
+            "CRUD_correct": "{}".format(CRUD_correct)
         }
 
-        return post_status
+        return status
 
     def build_quiz(self, quizID, problem, correct, userID):
         quiz = {

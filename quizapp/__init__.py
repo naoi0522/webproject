@@ -24,9 +24,10 @@ def create_app(test_config=None):
         if not 'login' in session:
             session['login'] = False
 
-        status = bjson.build_status(session['userID'], session['login'])
+        login_status = bjson.build_login_status(
+            session['userID'], session['login'])
 
-        # return jsonify(status)
+        # return jsonify(login_status)
 
         return render_template('index.html',
                                title="メインページ", current_userID=session['userID'], login=session['login'])
