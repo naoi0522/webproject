@@ -16,7 +16,7 @@ class UserManage():
 
     def register_user(self, userID, passwd):
         if not self.check_duplication(userID):
-            #self.user.register_user(userID, passwd)
+            # self.user.register_user(userID, passwd)
             # TODO ユーザ登録on/off
             return True
         else:
