@@ -8,7 +8,9 @@ class Quiz(db.Model):
     quiz_id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(100))
     correct = db.Column(db.Boolean)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    # create_user = db.relationship(
+    # 'User', backref='quizs', cascade='delete,all')
 
     # def get_quiz_one(self, id):
     #     quiz = Quiz.query.get(id)

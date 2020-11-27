@@ -7,6 +7,7 @@ from graphene_sqlalchemy import SQLAlchemyConnectionField
 from quizapp.types.users import Users
 from quizapp.types.quizs import Quizs
 from quizapp.models.quiz import Quiz as QuizModel
+from quizapp.models.user import User as UserModel
 from quizapp.models.store import Store as StoreModel
 
 
@@ -24,13 +25,47 @@ class Query(graphene.ObjectType):
         storeval = store_qry.filter(StoreModel.id.contains(id)).first()
         return storeval
 
-    quizs_by_name = graphene.List(Quizs, name=graphene.String())
+    quizs_by_username = graphene.List(Quizs, username=graphene.String())
+    # ユーザーネームからクイズを抜き出し
 
-    # ユーザーIDからクイズを抜き出し
     @ staticmethod
-    def resolve_quizs_by_name(parent, info, **args):
-        q = args.get('name')
+    def resolve_quizs_by_username(parent, info, **args):
+        q = args.get('username')
 
         quizs_query = Quizs.get_query(info)
 
-        return quizs_query.filter(QuizModel.username.contains(q)).all()
+        return quizs_query.join(UserModel, QuizModel.user_id == UserModel.user_id).filter(UserModel.username == q).all()
+
+    user_by_name = graphene.List(Users, name=graphene.String())
+
+    # ユーザーネームからユーザーを抜き出し
+    @ staticmethod
+    def resolve_user_by_name(parent, info, **args):
+        q = args.get('name')
+
+        users_query = Users.get_query(info)
+
+        return users_query.filter(UserModel.username == q)
+
+    quiz_by_quiz_id = graphene.List(Quizs, quiz_id=graphene.Int())
+
+    # クイズIDからクイズを抜き出し
+    @ staticmethod
+    def resolve_quiz_by_quiz_id(parent, info, **args):
+        q = args.get('quiz_id')
+
+        quizs_query = Quizs.get_query(info)
+
+        return quizs_query.filter(QuizModel.quiz_id == q)
+
+    quiz_by_random = graphene.List(Quizs)
+
+    # ランダムにクイズを抜き出し
+    @ staticmethod
+    def resolve_quiz_by_quiz_id(parent, info, **args):
+        quizs_query = Quizs.get_query(info)
+
+        q = quizs_query.count()
+        # TODO ランダム化 製作中
+
+        return quizs_query.all()

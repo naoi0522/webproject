@@ -21,7 +21,7 @@ class CreateQuiz(graphene.Mutation):
 
     @staticmethod
     def mutate(self, info, input):
-        data = input_to_dictionary(input)
+        data = input  # input_to_dictionary(input)
         quiz = QuizModel(**data)
         db.session.add(quiz)
         db.session.commit()
