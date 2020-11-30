@@ -24,8 +24,8 @@ class UserManage():
             if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
                 #self.user.register_user(userID, passwd)
                 # TODO ユーザ登録on/off
-                return True
-        return False
+                return userID, True
+        return userID, False
 
     def check_password(self, userID, passwd):
         saved_user = self.user.get_user_one(userID)
@@ -38,11 +38,8 @@ class UserManage():
     def authenticate_user(self, userID, passwd):
         if self.check_duplication(userID):
             if self.check_password(userID, passwd):
-                return True
-            else:
-                return False
-        else:
-            return False
+                return userID, True
+        return userID, False
 
     def delete_user(self, qmng, userID, passwd):
         if self.check_password(userID, passwd):
