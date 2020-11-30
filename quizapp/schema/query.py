@@ -3,6 +3,7 @@ from flask_graphql_auth.decorators import query_header_jwt_required
 from quizapp.types.protected_store import ProtectedStore
 import graphene
 from graphene_sqlalchemy import SQLAlchemyConnectionField
+import random
 
 from quizapp.types.users import Users
 from quizapp.types.quizs import Quizs
@@ -60,12 +61,12 @@ class Query(graphene.ObjectType):
 
     quiz_by_random = graphene.List(Quizs)
 
-    # ランダムにクイズを抜き出し
+    # ランダムにクイズを１問抜き出し
     @ staticmethod
-    def resolve_quiz_by_quiz_id(parent, info, **args):
+    def resolve_quiz_by_random(parent, info):
         quizs_query = Quizs.get_query(info)
+        random_item = [random.choice(quizs_query.all())]
 
-        q = quizs_query.count()
-        # TODO ランダム化 製作中
+        return random_item
 
-        return quizs_query.all()
+    # TODO: １０問一気に抜き出しも考慮

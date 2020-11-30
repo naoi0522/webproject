@@ -43,7 +43,7 @@ class CreateUser(graphene.Mutation):
         user = UserModel.query.filter_by(username=temp_user.username).first()
         ok = True
         if user:
-            return CreateUser(user=user, ok=ok)
+            return CreateUser(user=user, ok=False)
         user = temp_user
         db.session.add(user)
         db.session.commit()

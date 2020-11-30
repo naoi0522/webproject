@@ -4,6 +4,7 @@ import quizapp.models
 import quizapp.config
 from flask_graphql import GraphQLView
 from flask_graphql_auth import GraphQLAuth
+from flask_cors import CORS
 
 
 def create_app(test_config=None):
@@ -13,6 +14,7 @@ def create_app(test_config=None):
     app.config['SECRET_KEY'] = "PS4"
     app.config["JWT_SECRET_KEY"] = "SWITCH"
     auth = GraphQLAuth(app)
+    CORS(app)
     init_db(app)
 
     from quizapp.schema.schema import schema
