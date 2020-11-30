@@ -2,20 +2,24 @@
 {% block content %}
 <div class=profile>
     <div class="userID">
-userID : {{current_userID}}
+        userID : {{current_userID}}
     </div>
-    <div class="quiz_list">
+    <div class="uk-child-width-1-3@m" uk-grid
+        uk-scrollspy="cls:uk-animation-fade; target: .uk-card; delay: 500; repeart: true">
         {% for quiz in quiz_list %}
-            {% if quiz.correct == 1 %}
-                {% set correct = "〇" %}
-            {% else %}
-                {% set correct = "×" %}
-            {% endif %}
-{{quiz.problem}}:{{correct}}<br>
+        {% if quiz.correct == 1 %}
+        {% set correct = "〇" %}
+        {% else %}
+        {% set correct = "×" %}
+        {% endif %}
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">{{quiz.problem}}:{{correct}}</div>
+        </div>
+
         {% endfor %}
     </div>
 </div>
 <div class="buttons">
-    <button onclick="location.href='./../'">戻る</button>
+    <button class="uk-button uk-button-default" onclick="location.href='./../'">戻る</button>
 </div>
 {% endblock %}
