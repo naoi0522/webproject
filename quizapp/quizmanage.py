@@ -1,5 +1,6 @@
 from sqlalchemy.inspection import inspect
 from quizapp.models.quiz import Quiz
+from quizapp.checkstring import CheckString
 from sqlalchemy.sql.expression import func, select
 import random
 
@@ -8,6 +9,7 @@ class QuizManage():
 
     def __init__(self):
         self.quiz = Quiz()
+        self.cstr = CheckString()
 
     def new_quiz(self):
         self.quiz_num = 0
@@ -57,31 +59,26 @@ class QuizManage():
 
         return result, self.quiz_num, self.current_quiz.problem
 
-    def trim_spaces(self, str):
-        return str.replace(' ', '').replace('　', '')
-        # TODO 入力値の制限(改行など)
-
-    def check_str_length(self, problem):
-        if len(problem) >= 6:
-            return True
-        else:
-            return False
-
     def register_quiz(self, problem, correct, userID):
-        problem = self.trim_spaces(problem)
+        problem = self.cstr.trim_spaces(problem)
 
+<<<<<<< HEAD
         if self.check_str_length(problem):
             self.quiz.register_quiz(problem, correct, userID)
+=======
+        if self.cstr.check_str_length(problem, 6):
+            #self.quiz.register_quiz(problem, correct, userID)
+>>>>>>> d76ea9a89ce16e8556e753ed6129bbf475314977
             # TODO クイズ追加on/off
             return True
         else:
             return False
 
     def update_quiz(self, quizID, problem, correct):
-        problem = self.trim_spaces(problem)
+        problem = self.cstr.trim_spaces(problem)
 
-        if self.check_str_length(problem):
-            self.quiz.update_quiz(quizID, problem, correct)
+        if self.cstr.check_str_length(problem, 6):
+            #self.quiz.update_quiz(quizID, problem, correct)
             # TODO クイズ更新on/off
             return True
         else:

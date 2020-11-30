@@ -16,7 +16,7 @@ def register_user():
         userID = request.form['userID']
         passwd = request.form['passwd']
 
-        session['login'] = umng.register_user(userID, passwd)
+        userID, session['login'] = umng.register_user(userID, passwd)
 
         if session['login']:
             session['userID'] = userID
@@ -36,7 +36,7 @@ def login():
         userID = request.form['userID']
         passwd = request.form['passwd']
 
-        session['login'] = umng.authenticate_user(userID, passwd)
+        userID, session['login'] = umng.authenticate_user(userID, passwd)
 
         if session['login']:
             session['userID'] = userID
