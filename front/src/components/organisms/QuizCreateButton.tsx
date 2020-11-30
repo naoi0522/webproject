@@ -10,7 +10,7 @@ import { useMutation } from 'urql';
 
 type Props = {
   content: string;
-  answer: string;
+  answer: boolean;
 };
 
 const QuizCreateButton: FC<Props> = ({ content, answer }) => {
