@@ -1,32 +1,56 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="form">
-    <form action="/auth/registeruser" method="post" autocomplete="off">
-        <div class="input_text">
-            <label for="userID">ユーザID(3文字以上20文字以下)</label>
-            <input type="text" id="userID" name="userID" minlength="3" maxlength="20" required>
-        </div>
-        <div class="input_text">
-            <label for="passwd">パスワード(6文字以上20文字以下)</label>
-            <input type="password" id="passwd" name="passwd" minlength="6" maxlength="20" required>
-        </div>
-        <div class="buttons">
-            <button type="submit">ユーザ登録</button>
-        </div>
-    </form>
-</div>
+
+<!-- TODO: バリデーションチェック -->
 {% if is_post %}
-<div class="success">
-    {% if login %}
-登録に成功しました。
-ようこそ、{{userID}}さん。
-    {% else %}
-登録に失敗しました。
-ユーザID:{{userID}}は既に存在します。
-    {% endif %}
+<div class="uk-position-center">
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+        {% if login %}
+        <span class="uk-label uk-label-success">Success!!</span>
+        <h3 class="uk-card-title">
+            ようこそ、{{userID}}さん。
+        </h3>
+        {% else %}
+        <span class="uk-label uk-label-danger">Failed!!</span>
+        <h3 class="uk-card-title">
+            ユーザID:{{userID}}は既に存在します。
+        </h3>
+        {% endif %}
+    </div>
+</div>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 15em;">
+    <button class="uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
+</div>
+{% else %}
+<div class=" uk-position-center">
+    <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-section-muted uk-section-small">
+            <div class="uk-container">
+                <form action="/auth/registeruser" method="post" autocomplete="off" class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label for="userID" class="uk-form-label">UserID</label>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: user"></span>
+                            <input type="text" id="userID" name="userID" maxlength="20" class="uk-input" required />
+                        </div>
+                    </div>
+                    <div class="uk-margin">
+                        <label for="passwd" class="uk-form-label">Password</label>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                            <input type="password" id="passwd" name="passwd" maxlength="20" class="uk-input" required />
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="uk-button-primary uk-button-small uk-width-1-1">Sign-Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 15em;">
+    <button class=" uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
 </div>
 {% endif %}
-<div class="buttons">
-    <button onclick="location.href='./../'">戻る</button>
-</div>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<!-- クイズの実装 -->
 <div class="quiznum">
     第{{quiz_num}}問
 </div>
@@ -15,18 +16,18 @@
 </div>
 {% else %}
 <div class="your_answer">
-あなたの答え : 
+    あなたの答え :
     {% if ans == "True" %}
-〇
+    〇
     {% else %}
-×
+    ×
     {% endif %}
 </div>
 <div class="result">
     {% if result %}
-正解
+    正解
     {% else %}
-不正解
+    不正解
     {% endif %}
 </div>
 <div class="buttons">
