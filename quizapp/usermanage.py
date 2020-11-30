@@ -21,19 +21,11 @@ class UserManage():
         passwd = self.cstr.trim_spaces(passwd)
 
         if not self.check_duplication(userID):
-<<<<<<< HEAD
-            self.user.register_user(userID, passwd)
-            # TODO ユーザ登録on/off
-            return True
-        else:
-            return False
-=======
             if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
                 #self.user.register_user(userID, passwd)
                 # TODO ユーザ登録on/off
                 return userID, True
         return userID, False
->>>>>>> d76ea9a89ce16e8556e753ed6129bbf475314977
 
     def check_password(self, userID, passwd):
         saved_user = self.user.get_user_one(userID)
