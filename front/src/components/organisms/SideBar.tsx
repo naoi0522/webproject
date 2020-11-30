@@ -21,7 +21,7 @@ const SideBar: FC<Props> = ({ currentPage = '1' }) => (
     <div className="logo" />
     <Menu theme="dark" mode="inline" defaultSelectedKeys={[currentPage]}>
       <Menu.Item key="1" icon={<HomeOutlined />}>
-        <Link to="/">ホーム</Link>
+        <Link to="/home">ホーム</Link>
       </Menu.Item>
       <Menu.Item key="2" icon={<EditOutlined />}>
         <Link to="/create">クイズを作る</Link>
