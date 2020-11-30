@@ -9,7 +9,7 @@ const { TextArea } = Input;
 
 const Create: FC = () => {
   const [content, setContent] = useState('');
-  const [ans, setAns] = useState();
+  const [ans, setAns] = useState(true);
 
   return (
     <BasicPage current="2">
@@ -33,7 +33,12 @@ const Create: FC = () => {
                 hasFeedback
                 help="最低６文字以上入力してください。"
                 rules={[
-                  { required: true, message: '問題文を入力してください！' },
+                  {
+                    min: 6,
+                    max: 100,
+                    required: true,
+                    message: '問題文を入力してください！',
+                  },
                 ]}
               >
                 <TextArea
@@ -53,6 +58,7 @@ const Create: FC = () => {
               >
                 <Radio.Group
                   buttonStyle="solid"
+                  defaultValue="true"
                   onChange={(e) => setAns(e.target.value)}
                 >
                   <Radio.Button value="true">True</Radio.Button>
