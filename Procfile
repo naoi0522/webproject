@@ -1,1 +1,1 @@
-web: python index.py
+web: gunicorn quizapp.wsgi:app

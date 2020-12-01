@@ -1,0 +1,3 @@
+# 必要環境変数
+SECRET_KEY
+PROD_DATABASE_URI
