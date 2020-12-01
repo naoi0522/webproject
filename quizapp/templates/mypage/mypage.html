@@ -1,21 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div class="uk-position-medium uk-position-top-left uk-margin-xlarge-top">
+<!-- PC -->
+<div class="uk-position-medium uk-position-top-left uk-margin-auto-top uk-child-width-auto uk-visible@s">
     <div class="userID uk-card uk-card-body uk-card-secondary">
-        <h5 class="uk-card-title">
-            {{current_userID}}のページ
-        </h5>
+        <div class="uk-card-title uk-text-bold uk-text-emphasis">
+            {{current_userID}}
+        </div>
     </div>
 </div>
 
+
 <div class="uk-position-center">
-    <div>
+    <!-- スマホ -->
+    <div class="uk-position-top-left uk-child-width-auto uk-hidden@s">
+        <div class="userID uk-card uk-card-body uk-card-secondary">
+            <div class="uk-text-small uk-card-title uk-text-bold uk-text-emphasis">
+                {{current_userID}}
+            </div>
+        </div>
+    </div>
+    <div class="uk-text-muted uk-text-center uk-visible@s">
         <h3>作成した問題リスト</h3>
     </div>
-    <div class="uk-section uk-section-secondary">
-        <div class="uk-child-width-1-3@s" uk-grid
+    <div class="uk-text-muted uk-text-right uk-margin-medium-right uk-hidden@s">
+        <h3>作成した問題リスト</h3>
+    </div>
+    <div class="uk-section uk-section-secondary uk-section-small">
+        <div class="uk-child-width-auto@m" uk-grid
             uk-scrollspy="cls:uk-animation-fade; target: .uk-card; delay: 500; repeart: true">
+            {% if quiz_count == 0 %}
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-small uk-card-hover uk-card-body">
+                    作成した問題がありません</div>
+            </div>
+            {% endif %}
+
             {% for i in range(quiz_count) %}
             {% if quiz_list[i].correct == 1 %}
             {% set correct = "〇" %}
