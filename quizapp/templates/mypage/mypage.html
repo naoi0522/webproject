@@ -16,7 +16,7 @@
     <div class="uk-section uk-section-secondary">
         <div class="uk-child-width-1-3@s" uk-grid
             uk-scrollspy="cls:uk-animation-fade; target: .uk-card; delay: 500; repeart: true">
-            {% for i in range(5) %}
+            {% for i in range(quiz_count) %}
             {% if quiz_list[i].correct == 1 %}
             {% set correct = "〇" %}
             {% else %}
