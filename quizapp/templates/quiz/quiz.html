@@ -1,42 +1,69 @@
 {% extends "layout.html" %}
 {% block content %}
-<!-- クイズの実装 -->
-<div class="quiznum">
-    第{{quiz_num}}問
+
+<div class="uk-position-center">
+    <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-section-secondary uk-section-small">
+            <div class="uk-container">
+                <h3 class="uk-text-center">
+                    第{{quiz_num}}問
+                </h3>
+                <p class="problem uk-text-large">
+                    {{problem}}
+                </p>
+                {% if not answered %}
+                <div class="ans_button">
+                    <form action="/quiz/quiz" method="POST">
+                        <div class="uk-text-center">
+                            <button class="uk-button uk-button-default" type="submit" class="" name="ans"
+                                value="True">〇</button>
+                            <button class="uk-button uk-button-default" type="submit" name="ans"
+                                value="False">×</button>
+                        </div>
+                    </form>
+                </div>
+                {% else %}
+                <div class="result">
+                    {% if result %}
+                    <p class="uk-text-success uk-text-large uk-text-center">
+                        正解
+                    </p>
+                    {% else %}
+                    <p class="uk-text-danger uk-text-large uk-text-center">
+                        不正解
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="your_answer">
+                    <p class="uk-text-center">
+                        あなたの答え :
+                        {% if ans == "True" %}
+                        〇
+                        {% else %}
+                        ×
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="buttons">
+                    {% if quiz_num < 10 %}
+                    <div class="uk-text-center">
+                        <button class="uk-button uk-button-default uk-button-large"
+                            onclick="location.href='./quiz'">次へ</button>
+                    </div>
+                    {% else %}
+                    <div class="uk-text-center">
+                        <button class="uk-button uk-button-default uk-button-large"
+                            onclick="location.href='./result'">結果へ</button>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-<div class="problem">
-    {{problem}}
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 5vh;">
+    <button class=" uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
 </div>
-{% if not answered %}
-<div class="ans_button">
-    <form action="/quiz/quiz" method="POST">
-        <button type="submit" name="ans" value="True">〇</button>
-        <button type="submit" name="ans" value="False">×</button>
-    </form>
-</div>
-{% else %}
-<div class="your_answer">
-    あなたの答え :
-    {% if ans == "True" %}
-    〇
-    {% else %}
-    ×
-    {% endif %}
-</div>
-<div class="result">
-    {% if result %}
-    正解
-    {% else %}
-    不正解
-    {% endif %}
-</div>
-<div class="buttons">
-    {% if quiz_num < 10 %}
-    <button onclick="location.href='./quiz'">次へ</button>
-    {% else %}
-    <button onclick="location.href='./result'">結果へ</button>
-    {% endif %}
-</div>
-{% endif %}
 
 {% endblock %}

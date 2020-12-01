@@ -3,7 +3,7 @@
 
 {% if is_post %}
 <div class="uk-position-center">
-    <div class="uk-card uk-card-default uk-card-body uk-width-1-1@m">
+    <div class="uk-card uk-card-secondary uk-card-body uk-width-1-1@m">
         {% if login %}
         <span class="uk-label uk-label-success">Success!!</span>
         <h3 class="uk-card-title">
@@ -23,7 +23,7 @@
 {% else %}
 <div class="uk-position-center">
     <div class="uk-flex uk-flex-center uk-flex-middle">
-        <div class="uk-section-muted uk-section-small">
+        <div class="uk-section-secondary uk-section-small">
             <div class="uk-container">
                 <form action="/auth/login" method="post" autocomplete="off" class="uk-form-stacked">
                     <div class="uk-margin">
