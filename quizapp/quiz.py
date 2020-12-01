@@ -77,3 +77,19 @@ def updatequiz():
         return render_template('quiz/update.html',
                                title="クイズ更新", current_userID=session['userID'], login=session['login'],
                                is_post=False)
+
+
+@bp.route('/delete', methods=['GET', 'POST'])
+def deletequiz():
+    if request.method == "POST":
+        quizID = int(request.form['quizID'])
+
+        qmng.delete_quiz(quizID)
+
+        return render_template('quiz/delete.html',
+                               title="クイズ削除", current_userID=session['userID'], login=session['login'],
+                               is_post=True)
+    else:
+        return render_template('quiz/delete.html',
+                               title="クイズ削除", current_userID=session['userID'], login=session['login'],
+                               is_post=False)

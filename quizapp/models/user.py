@@ -42,6 +42,6 @@ class User(db.Model):
         db.session.commit()
 
     def delete_user(self, userID):
-        self.get_user_one(userID).delete()
+        db.session.query(User).filter(User.userID == userID).delete()
 
         db.session.commit()

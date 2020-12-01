@@ -51,3 +51,12 @@ class UserManage():
             if self.check_password(userID, passwd):
                 return userID, True
         return userID, False
+
+    def delete_user(self, userID, passwd):
+        if self.check_password(userID, passwd):
+            self.qmng.delete_quiz_from_userID(userID)
+            self.user.delete_user(userID)
+
+            return True
+        else:
+            return False

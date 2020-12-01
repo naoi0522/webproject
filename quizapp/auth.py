@@ -50,6 +50,25 @@ def login():
                                title="ログイン", current_userID=session['userID'], login=session['login'], is_post=False)
 
 
+@bp.route('/delete', methods=['GET', 'POST'])
+def delete_user():
+    if request.method == "POST":
+        userID = session['userID']
+        passwd = request.form['passwd']
+
+        correct = umng.delete_user(userID, passwd)
+
+        if correct:
+            session['userID'] = None
+            session['login'] = False
+
+        return render_template('auth/delete.html',
+                               title="ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=True, correct=correct)
+    else:
+        return render_template('auth/delete.html',
+                               title="ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=False)
+
+
 @bp.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('userID', None)
