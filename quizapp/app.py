@@ -8,7 +8,7 @@ import quizapp.config
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     # 本番と開発切り替え
-    app.config.from_object('quizapp.config.DevConfig')
+    app.config.from_object('quizapp.config.ProductConfig')
 
     init_db(app)
 
