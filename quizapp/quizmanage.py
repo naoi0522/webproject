@@ -78,3 +78,9 @@ class QuizManage():
             return True
         else:
             return False
+
+    def delete_quiz(self, quizID):
+        self.quiz.delete_quiz_one(quizID)
+
+    def delete_quiz_from_userID(self, userID):
+        self.quiz.delete_quiz_from_userID(userID)

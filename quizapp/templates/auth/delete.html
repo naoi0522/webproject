@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+{% if is_post %}
+<div class="uk-position-center">
+    <div class="uk-card uk-card-secondary uk-card-body uk-width-1-1@m">
+        {% if correct %}
+        <span class="uk-label uk-label-success">Success!!</span>
+        <h3 class="uk-card-title">
+            ユーザを削除しました。
+        </h3>
+        {% else %}
+        <span class="uk-label uk-label-danger">Failed!!</span>
+        <h3 class="uk-card-title">
+            パスワードが違います。
+        </h3>
+        {% endif %}
+    </div>
+</div>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 15vh;">
+    <button class="uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
+</div>
+{% else %}
+<div class="uk-position-center">
+    <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-section-secondary uk-section-small">
+            <div class="uk-container">
+                <form action="/auth/delete" method="post" autocomplete="off" class="uk-form-stacked">
+                    <div class="uk-margin">
+                        <label for="passwd" class="uk-form-label">Password</label>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                            <input type="password" id="passwd" name="passwd" maxlength="20" class="uk-input" />
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="uk-button-default uk-button-small uk-width-1-1">Delete-User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 15vh;">
+    <button class=" uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
+</div>
+{% endif %}
+
+
+{% endblock %}

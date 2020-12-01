@@ -60,6 +60,6 @@ class Quiz(db.Model):
         db.session.commit()
 
     def delete_quiz_from_userID(self, userID):
-        self.get_quiz_from_userID(userID).delete()
+        db.session.query(Quiz).filter(Quiz.userID == userID).delete()
 
         db.session.commit()
