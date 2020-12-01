@@ -1,0 +1,21 @@
+.flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.bg-image {
+  height: 100vh;
+  background-image: url(../static/img/index1.jpg);
+}
+
+.bg-image::before {
+  content: '';
+  /* ↓暗いオーバーレイを半透明で配置 */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* ↓全体を覆うように配置 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}

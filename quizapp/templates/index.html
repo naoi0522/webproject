@@ -1,17 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-{% if login %}
-<div class="buttons">
-    <button onclick="location.href='./quiz/newquiz'">クイズ</button>
-    <button onclick="location.href='./auth/logout'">ログアウト</button>
-    <button onclick="location.href='./quiz/registerquiz'">クイズ登録</button>
-    <button onclick="location.href='./mypage'">マイページ</button>
+
+<div class="uk-position-center-left uk-position-medium">
+    <img src="../static/img/logo.png" uk-img alt="" style="margin-bottom: 16em;">
 </div>
-{% else %}
-<div class="buttons">
-    <button onclick="location.href='./quiz/newquiz'">クイズ</button>
-    <button onclick="location.href='./auth/login'">ログイン</button>
-    <button onclick="location.href='./auth/registeruser'">ユーザ登録</button>
-</div>
-{% endif %}
 {% endblock %}
