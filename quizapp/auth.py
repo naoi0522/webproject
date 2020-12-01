@@ -16,7 +16,7 @@ def register_user():
         userID = request.form['userID']
         passwd = request.form['passwd']
 
-        userID, session['login'] = umng.register_user(userID, passwd)
+        userID, session['login'], message = umng.register_user(userID, passwd)
 
         if session['login']:
             session['userID'] = userID
@@ -24,7 +24,7 @@ def register_user():
             session['userID'] = None
 
         return render_template('auth/registeruser.html',
-                               title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=True, userID=userID)
+                               title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=True, message=message)
     else:
         return render_template('auth/registeruser.html',
                                title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=False)

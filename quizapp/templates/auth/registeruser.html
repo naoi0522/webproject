@@ -8,12 +8,12 @@
         {% if login %}
         <span class="uk-label uk-label-success">Success!!</span>
         <h3 class="uk-card-title">
-            ようこそ、{{userID}}さん。
+            {{message}}
         </h3>
         {% else %}
         <span class="uk-label uk-label-danger">Failed!!</span>
         <h3 class="uk-card-title">
-            ユーザID:{{userID}}は既に存在します。
+            {{message}}
         </h3>
         {% endif %}
     </div>
