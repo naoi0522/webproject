@@ -1,9 +1,20 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="total">
-    正解数 : {{total}}
+
+<div class="uk-position-center">
+    <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-section-secondary uk-section-small">
+            <div class="uk-container">
+                <h3 class="uk-text-center uk-margin">
+                    正解数 : {{total}}
+                </h3>
+
+            </div>
+        </div>
+    </div>
 </div>
-<div class="buttons">
-    <button onclick="location.href='./../'">戻る</button>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 5vh;">
+    <button class=" uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
 </div>
+
 {% endblock %}

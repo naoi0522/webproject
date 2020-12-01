@@ -63,7 +63,7 @@ class QuizManage():
         problem = self.cstr.trim_spaces(problem)
 
         if self.cstr.check_str_length(problem, 6):
-            #self.quiz.register_quiz(problem, correct, userID)
+            self.quiz.register_quiz(problem, correct, userID)
             # TODO クイズ追加on/off
             return True
         else:

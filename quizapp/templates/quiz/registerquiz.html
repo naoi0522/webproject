@@ -1,32 +1,52 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="form">
-    <form action="/quiz/registerquiz" method="post" autocomplete="off">
-        <div class="problem">
-            <label for="problem">問題文(6文字以上100文字以下)</label>
-            <textarea id="problem" name="problem" rows="5" cols="40" minlength="6" maxlength="100">(例)主キー以外は外部キー？</textarea>
-        </div>
-        <div class="radio">
-            <label for="true">〇</label>
-            <input type="radio" id="true" name="correct" value="1" checked>
-            <label for="false">×</label>
-            <input type="radio" id="false" name="correct" value="0">
-        </div>
-        <div class="buttons">
-            <button type="submit">登録</button>
-        </div>
-    </form>
-</div>
+
 {% if is_post %}
-<div class="success">
-    {% if correct %}
-登録に成功しました。
-    {% else %}
-登録に失敗しました。
-    {% endif %}
+<div class="uk-position-center">
+    <div class="uk-card uk-card-secondary uk-card-body uk-width-1-1@m">
+        {% if correct %}
+        <span class="uk-label uk-label-success">Success!!</span>
+        <h3 class="uk-card-title">
+            登録しました。
+        </h3>
+        {% else %}
+        <span class="uk-label uk-label-danger">Failed!!</span>
+        <h3 class="uk-card-title">
+            失敗しました。
+        </h3>
+        {% endif %}
+    </div>
 </div>
+{% else %}
+<div class="uk-position-center">
+    <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-section-secondary uk-section-small">
+            <div class="uk-container">
+                <form action="/quiz/registerquiz" method="post" autocomplete="off" class="uk-form-stacked">
+                    <div class="problem uk-margin">
+                        <div class="uk-text-large uk-text-center uk-margin-small-bottom">問題作成</div>
+                        <label for="problem" class="uk-form-label">問題文(6文字以上100文字以下)</label>
+                        <textarea class="uk-textarea" id="problem" name="problem" rows="5" cols="40" minlength="6"
+                            maxlength="100">(例)主キー以外は外部キー？</textarea>
+                    </div>
+                    <div class="radio uk-text-center">
+                        <label for="true">〇</label>
+                        <input class="uk-radio" type="radio" id="true" name="correct" value="1" checked>
+                        <label for="false">×</label>
+                        <input class="uk-radio" type="radio" id="false" name="correct" value="0">
+                    </div>
+                    <div class="uk-text-center uk-margin-small-top">
+                        <button class=" uk-button uk-button-primary" type="submit">登録</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endif %}
-<div class="buttons">
-    <button onclick="location.href='./../'">戻る</button>
+<div class="uk-position-small uk-position-bottom-center" style="margin-bottom: 5vh;">
+    <button class=" uk-button uk-button-secondary uk-button-large" onclick=" location.href='./../'">戻る</button>
 </div>
 {% endblock %}

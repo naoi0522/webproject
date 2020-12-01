@@ -24,7 +24,7 @@ class UserManage():
 
         if not self.check_duplication(userID):
             if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
-                #self.user.register_user(userID, passwd)
+                self.user.register_user(userID, passwd)
                 # TODO ユーザ登録on/off
                 message = "ようこそ、" + userID + "さん。"
                 return userID, True, message
