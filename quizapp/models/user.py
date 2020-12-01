@@ -7,7 +7,7 @@ class User(db.Model):
     __tablename__ = 'users'
 
     userID = db.Column(db.String(20), primary_key=True)
-    password = db.Column(db.String(20))
+    password = db.Column(db.String(64))
     quizs = db.relationship('Quiz', backref='user')
 
     def get_user_one(self, userID):

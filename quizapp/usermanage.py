@@ -1,6 +1,7 @@
 from quizapp.models.user import User
 from quizapp.quizmanage import QuizManage
 from quizapp.checkstring import CheckString
+import hashlib
 
 
 class UserManage():
@@ -24,7 +25,8 @@ class UserManage():
 
         if not self.check_duplication(userID):
             if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
-                self.user.register_user(userID, passwd)
+                hashed_pass = hashlib.sha256(passwd.encode()).hexdigest()
+                self.user.register_user(userID, hashed_pass)
                 # TODO ユーザ登録on/off
                 message = "ようこそ、" + userID + "さん。"
                 return userID, True, message
@@ -37,8 +39,9 @@ class UserManage():
 
     def check_password(self, userID, passwd):
         saved_user = self.user.get_user_one(userID)
+        hashed_pass = hashlib.sha256(passwd.encode()).hexdigest()
 
-        if saved_user.password == passwd:
+        if saved_user.password == hashed_pass:
             return True
         else:
             return False
