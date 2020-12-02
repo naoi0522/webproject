@@ -1,5 +1,6 @@
 #import functools
 from quizapp.usermanage import *
+import time
 from flask import(
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -17,7 +18,7 @@ def register_user():
         passwd = request.form['passwd']
 
         userID, session['login'], message = umng.register_user(userID, passwd)
-
+        time.sleep(1)
         if session['login']:
             session['userID'] = userID
         else:
@@ -37,7 +38,7 @@ def login():
         passwd = request.form['passwd']
 
         userID, session['login'] = umng.authenticate_user(userID, passwd)
-
+        time.sleep(1)
         if session['login']:
             session['userID'] = userID
         else:
@@ -57,7 +58,7 @@ def delete_user():
         passwd = request.form['passwd']
 
         correct = umng.delete_user(userID, passwd)
-
+        time.sleep(1)
         if correct:
             session['userID'] = None
             session['login'] = False

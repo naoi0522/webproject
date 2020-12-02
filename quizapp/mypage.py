@@ -1,4 +1,5 @@
 #import functools
+import time
 from quizapp.quizmanage import *
 from quizapp.usermanage import *
 
@@ -16,6 +17,7 @@ umng = UserManage()
 @bp.route('/', methods=['GET'])
 def mypage():
     quiz_list = qmng.get_quiz_from_userID(session['userID'])
+    time.sleep(1)
     quiz_count = 0
     for quiz in quiz_list:
         quiz_count += 1

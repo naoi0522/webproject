@@ -1,10 +1,11 @@
 #import functools
+from time import sleep
 from quizapp.quizmanage import *
 from flask import(
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 #from werkzeug.security import check_password_hash, generate_password_hash
-
+import time
 
 bp = Blueprint('quiz', __name__, url_prefix='/quiz')
 qmng = QuizManage()
@@ -13,6 +14,7 @@ qmng = QuizManage()
 @bp.route('newquiz', methods=['GET'])
 def newquiz():
     qmng.new_quiz()
+    time.sleep(1)
 
     quiz_num, problem = qmng.get_next_quiz()
     return render_template('quiz/quiz.html',
@@ -25,11 +27,13 @@ def quiz():
     if request.method == "POST":
         ans = request.form['ans']
         result, quiz_num, problem = qmng.judge(ans)
+        time.sleep(0.5)
         return render_template('quiz/quiz.html',
                                title="クイズ", current_userID=session['userID'], login=session['login'],
                                answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
     else:
         quiz_num, problem = qmng.get_next_quiz()
+        time.sleep(1)
         return render_template('quiz/quiz.html',
                                title="クイズ", current_userID=session['userID'], login=session['login'],
                                answered=False, quiz_num=quiz_num, problem=problem)
@@ -38,6 +42,7 @@ def quiz():
 @bp.route('/result', methods=['GET'])
 def result():
     total = qmng.get_correct_total()
+    time.sleep(1)
     return render_template('quiz/result.html',
                            title="結果発表", current_userID=session['userID'], login=session['login'],
                            total=total)
@@ -51,7 +56,7 @@ def registerquiz():
         userID = session['userID']
 
         correct = qmng.register_quiz(problem, correct, userID)
-
+        time.sleep(1)
         return render_template('quiz/registerquiz.html',
                                title="クイズ登録", current_userID=session['userID'], login=session['login'],
                                is_post=True, correct=correct)
