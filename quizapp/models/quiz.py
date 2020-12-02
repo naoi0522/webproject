@@ -1,5 +1,5 @@
-from time import time
 from quizapp.database import db
+import time
 
 
 class Quiz(db.Model):
