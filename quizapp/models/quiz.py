@@ -13,7 +13,7 @@ class Quiz(db.Model):
 
     def get_quiz_one(self, id):
         quiz = Quiz.query.get(id)
-        time.sleep(1)
+        time.sleep(2)
 
         return quiz
 
