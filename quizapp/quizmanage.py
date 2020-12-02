@@ -35,7 +35,6 @@ class QuizManage():
 
     def get_quiz(self, id):
         quiz = self.quiz.get_quiz_one(id)
-        print(quiz)
 
         return quiz
 
@@ -53,7 +52,6 @@ class QuizManage():
         else:
             ans = False
 
-        print(self.current_quiz.correct)
         if ans == self.current_quiz.correct:
             result = True
             self.correct_total += 1
