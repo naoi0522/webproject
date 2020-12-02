@@ -10,7 +10,8 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True,
                 static_folder='static', template_folder='templates')
     # 本番と開発切り替え ProductConfig <-> DevConfig
-    app.config.from_object('quizapp.config.ProductConfig')
+    # app.config.from_object('quizapp.config.ProductConfig')
+    app.config.from_object('quizapp.config.DevConfig')
     init_db(app)
 
     @app.route('/', methods=['GET', 'POST'])
@@ -20,19 +21,25 @@ def create_app(test_config=None):
         if not 'login' in session:
             session['login'] = False
         response_body = render_template('index.html',
-                                        title="メインページ", current_userID=session['userID'], login=session['login'])
+                                        title="Quizs | メインページ", current_userID=session['userID'], login=session['login'])
         response = prepare_response(response_body)
         return response
 
+    @app.route("/favicon.ico")
+    def favicon():
+        return app.send_static_file("favicon.ico")
+
     @app.errorhandler(404)
     def page_not_found(error):
-        response_body = render_template('page_not_found.html')
+        response_body = render_template(
+            'page_not_found.html', title="Quizs | 404 error")
         response = prepare_response(response_body)
         return response, 404
 
     @app.errorhandler(500)
     def internal_server_error(error):
-        response_body = render_template('internal_server_error.html')
+        response_body = render_template(
+            'internal_server_error.html', title="Quizs | 500 error")
         response = prepare_response(response_body)
         return response, 500
 

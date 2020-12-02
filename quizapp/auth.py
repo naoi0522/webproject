@@ -24,14 +24,14 @@ def register_user():
             session['userID'] = None
 
         response_body = render_template('auth/registeruser.html',
-                                        title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=True, message=message)
+                                        title="Quizs | ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=True, message=message)
         response = prepare_response(response_body)
         return response
 
         return
     else:
         response_body = render_template('auth/registeruser.html',
-                                        title="ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=False)
+                                        title="Quizs | ユーザ登録", current_userID=session['userID'], login=session['login'], is_post=False)
         response = prepare_response(response_body)
         return response
 
@@ -47,12 +47,12 @@ def login():
         else:
             session['userID'] = None
         response_body = render_template('auth/login.html',
-                                        title="ログイン", current_userID=session['userID'], login=session['login'], is_post=True, userID=userID)
+                                        title="Quizs | ログイン", current_userID=session['userID'], login=session['login'], is_post=True, userID=userID)
         response = prepare_response(response_body)
         return response
     else:
         response_body = render_template('auth/login.html',
-                                        title="ログイン", current_userID=session['userID'], login=session['login'], is_post=False)
+                                        title="Quizs | ログイン", current_userID=session['userID'], login=session['login'], is_post=False)
         response = prepare_response(response_body)
         return response
 
@@ -68,13 +68,13 @@ def delete_user():
             session['login'] = False
 
         response_body = render_template('auth/delete.html',
-                                        title="ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=True, correct=correct)
+                                        title="Quizs | ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=True, correct=correct)
         response = prepare_response(response_body)
         return response
 
     else:
         response_body = render_template('auth/delete.html',
-                                        title="ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=False)
+                                        title="Quizs | ユーザ削除", current_userID=session['userID'], login=session['login'], is_post=False)
         response = prepare_response(response_body)
         return response
 
