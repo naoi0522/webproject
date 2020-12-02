@@ -26,15 +26,13 @@ def newquiz():
 def quiz():
     if request.method == "POST":
         ans = request.form['ans']
-        time.sleep(1)
-        print(qmng.current_quiz)
         result, quiz_num, problem = qmng.judge(ans)
         return render_template('quiz/quiz.html',
                                title="クイズ", current_userID=session['userID'], login=session['login'],
                                answered=True, quiz_num=quiz_num, problem=problem, ans=ans, result=result)
     else:
         quiz_num, problem = qmng.get_next_quiz()
-        time.sleep(1)
+
         return render_template('quiz/quiz.html',
                                title="クイズ", current_userID=session['userID'], login=session['login'],
                                answered=False, quiz_num=quiz_num, problem=problem)

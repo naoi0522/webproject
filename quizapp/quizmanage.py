@@ -3,6 +3,7 @@ from quizapp.models.quiz import Quiz
 from quizapp.checkstring import CheckString
 from sqlalchemy.sql.expression import func, select
 import random
+import time
 
 
 class QuizManage():
@@ -26,6 +27,7 @@ class QuizManage():
         if self.quiz_num < 10:
             self.current_quiz = self.get_quiz(self.order[self.quiz_num])
             self.quiz_num += 1
+            time.sleep(1)
 
             return self.quiz_num, self.current_quiz.problem
         else:
