@@ -7,26 +7,26 @@ import hashlib
 class UserManage():
 
     def __init__(self):
-        self.user = User()
-        self.qmng = QuizManage()
-        self.cstr = CheckString()
+        pass
 
-    def check_duplication(self, userID):
-        duplicate = self.user.get_user_one(userID)
+    @staticmethod
+    def check_duplication(userID):
+        duplicate = User.get_user_one(userID)
 
         if not duplicate == None:
             return True
         else:
             return False
 
-    def register_user(self, userID, passwd):
-        userID = self.cstr.trim_spaces(userID)
-        passwd = self.cstr.trim_spaces(passwd)
+    @classmethod
+    def register_user(cls, userID, passwd):
+        userID = CheckString.trim_spaces(userID)
+        passwd = CheckString.trim_spaces(passwd)
 
-        if not self.check_duplication(userID):
-            if self.cstr.check_str_length(userID, 3) and self.cstr.check_str_length(passwd, 6):
+        if not cls.check_duplication(userID):
+            if CheckString.check_str_length(userID, 3) and CheckString.check_str_length(passwd, 6):
                 hashed_pass = hashlib.sha256(passwd.encode()).hexdigest()
-                self.user.register_user(userID, hashed_pass)
+                User.register_user(userID, hashed_pass)
                 # TODO ユーザ登録on/off
                 message = "ようこそ、" + userID + "さん。"
                 return userID, True, message
@@ -37,8 +37,9 @@ class UserManage():
             message = "ユーザID : " + userID + "は既に存在します。"
             return userID, False, message
 
-    def check_password(self, userID, passwd):
-        saved_user = self.user.get_user_one(userID)
+    @staticmethod
+    def check_password(userID, passwd):
+        saved_user = User.get_user_one(userID)
         hashed_pass = hashlib.sha256(passwd.encode()).hexdigest()
 
         if saved_user.password == hashed_pass:
@@ -46,16 +47,18 @@ class UserManage():
         else:
             return False
 
-    def authenticate_user(self, userID, passwd):
-        if self.check_duplication(userID):
-            if self.check_password(userID, passwd):
+    @classmethod
+    def authenticate_user(cls, userID, passwd):
+        if cls.check_duplication(userID):
+            if cls.check_password(userID, passwd):
                 return userID, True
         return userID, False
 
-    def delete_user(self, userID, passwd):
-        if self.check_password(userID, passwd):
-            self.qmng.delete_quiz_from_userID(userID)
-            self.user.delete_user(userID)
+    @classmethod
+    def delete_user(cls, userID, passwd):
+        if cls.check_password(userID, passwd):
+            QuizManage.delete_quiz_from_userID(userID)
+            UserManage.delete_user(userID)
 
             return True
         else:

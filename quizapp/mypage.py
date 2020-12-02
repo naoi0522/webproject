@@ -2,7 +2,7 @@
 import time
 from quizapp.quizmanage import *
 from quizapp.usermanage import *
-
+from quizapp.utils import prepare_response
 from flask import(
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -10,20 +10,16 @@ from flask import(
 
 
 bp = Blueprint('mypage', __name__, url_prefix='/mypage')
-qmng = QuizManage()
-umng = UserManage()
 
 
-@bp.route('/', methods=['GET'])
-def mypage():
-    quiz_list = qmng.get_quiz_from_userID(session['userID'])
-    time.sleep(1)
-    quiz_count = 0
-    for quiz in quiz_list:
-        quiz_count += 1
-        if quiz_count > 4:
-            break
+@bp.route('/<user_id>', methods=['GET'])
+def mypage(user_id):
+    quiz_list = QuizManage.get_quiz_from_userID(user_id)
+    quiz_count = 4 if len(quiz_list) > 4 else 0
 
-    return render_template('mypage/mypage.html',
-                           title="マイページ", current_userID=session['userID'], login=session['login'],
-                           quiz_list=quiz_list, quiz_count=quiz_count)
+    response_body = render_template('mypage/mypage.html',
+                                    title="マイページ", current_userID=session['userID'], login=session['login'],
+                                    quiz_list=quiz_list, quiz_count=quiz_count, param=user_id)
+
+    response = prepare_response(response_body)
+    return response

@@ -5,8 +5,11 @@
 <div class="uk-position-medium uk-position-top-left uk-margin-auto-top uk-child-width-auto uk-visible@s">
     <div class="userID uk-card uk-card-body uk-card-secondary">
         <div class="uk-card-title uk-text-bold uk-text-emphasis">
-
-            {{current_userID}} <a href="{{ url_for('auth.delete_user') }}"><span uk-icon="icon: close"></span></a>
+            {{param}}
+            {% if param == current_userID %}
+            <a href="{{ url_for('auth.delete_user') }}"><span uk-icon="icon: close"></span></a>
+            {% else %}
+            {% endif %}
         </div>
     </div>
 </div>
@@ -18,7 +21,11 @@
     <div class="uk-position-top-left uk-text-left uk-child-width-auto uk-hidden@s">
         <div class="userID uk-card uk-card-body uk-card-secondary">
             <div class="uk-text-small uk-card-title uk-text-bold uk-text-emphasis">
-                {{current_userID}}
+                {{param}}
+                {% if param == current_userID %}
+                <a href="{{ url_for('auth.delete_user') }}"><span uk-icon="icon: close"></span></a>
+                {% else %}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -40,15 +47,16 @@
 
             {% for i in range(quiz_count) %}
             {% if quiz_list[i].correct == 1 %}
-            {% set correct = "〇" %}
-            {% else %}
-            {% set correct = "×" %}
-            {% endif %}
             <div>
                 <div class="uk-card uk-card-secondary uk-card-small uk-card-hover uk-card-body">
-                    {{quiz_list[i].problem}}:{{correct}}</div>
+                    {{quiz_list[i].problem}}:<span uk-icon="icon: check; ratio:2"></span></div>
             </div>
-
+            {% else %}
+            <div>
+                <div class="uk-card uk-card-secondary uk-card-small uk-card-hover uk-card-body">
+                    {{quiz_list[i].problem}}:<span uk-icon="icon: close; ratio:2"></span></div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -57,8 +65,4 @@
     <button class=" uk-button uk-button-secondary uk-button-small" onclick=" location.href='./../'">戻る</button>
 </div>
 
-<div>
-    <button class=" uk-button uk-button-secondary uk-button-small"
-        onclick=" location.href='./../auth/delete'">ユーザを削除する</button>
-</div>
 {% endblock %}

@@ -1,1 +1,1 @@
-web: gunicorn --workers=1 --threads 4 quizapp.wsgi:app
+web: gunicorn quizapp.wsgi:app

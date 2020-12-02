@@ -1,5 +1,4 @@
 from quizapp.database import db
-import time
 
 
 class Quiz(db.Model):
@@ -11,35 +10,30 @@ class Quiz(db.Model):
     correct = db.Column(db.Boolean)
     userID = db.Column(db.String(20), db.ForeignKey('users.userID'))
 
-    def get_quiz_one(self, id):
-        quiz = Quiz.query.get(id)
-        time.sleep(1)
+    @staticmethod
+    def get_quiz_one(id):
+        return Quiz.query.get(id)
 
-        return quiz
+    @classmethod
+    def get_quiz_from_userID(cls, userID):
+        return cls.query.filter(Quiz.userID == userID).all()
 
-    def get_quiz_from_userID(self, userID):
-        quiz_list = Quiz.query.filter(Quiz.userID == userID).all()
+    @classmethod
+    def get_quiz_all(cls):
+        return cls.query.all()
 
-        return quiz_list
+    @classmethod
+    def get_id_all(cls):
+        fetch_id_list = cls.query.all()
+        return list(map(lambda x: x.quizID, fetch_id_list))
 
-    def get_quiz_all(self):
-        quiz_list = Quiz.query.all()
+    @classmethod
+    def quiz_count(cls):
+        return cls.query.count()
 
-        return quiz_list
-
-    def get_id_all(self):
-        fetch_id_list = Quiz.query.all()
-        id_list = list(map(lambda x: x.quizID, fetch_id_list))
-
-        return id_list
-
-    def quiz_count(self):
-        quiz_count = Quiz.query.count()
-
-        return quiz_count
-
-    def register_quiz(self, problem, correct, userID):
-        record = Quiz(
+    @classmethod
+    def register_quiz(cls, problem, correct, userID):
+        record = cls(
             problem=problem,
             correct=correct,
             userID=userID
@@ -48,20 +42,23 @@ class Quiz(db.Model):
         db.session.add(record)
         db.session.commit()
 
-    def update_quiz(self, quizID, problem, correct):
-        quiz = self.get_quiz_one(quizID)
+    @classmethod
+    def update_quiz(cls, quizID, problem, correct):
+        quiz = cls.get_quiz_one(quizID)
 
         quiz.problem = problem
         quiz.correct = correct
 
         db.session.commit()
 
-    def delete_quiz_one(self, quizID):
-        self.get_quiz_one(quizID).delete()
+    @classmethod
+    def delete_quiz_one(cls, quizID):
+        cls.get_quiz_one(quizID).delete()
 
         db.session.commit()
 
-    def delete_quiz_from_userID(self, userID):
-        db.session.query(Quiz).filter(Quiz.userID == userID).delete()
+    @classmethod
+    def delete_quiz_from_userID(cls, userID):
+        cls.filter(cls.userID == userID).delete()
 
         db.session.commit()
