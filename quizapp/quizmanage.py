@@ -25,7 +25,6 @@ class QuizManage():
 
     def get_next_quiz(self):
         if self.quiz_num < 10:
-            print(self.get_quiz(self.order[self.quiz_num]))
             self.current_quiz = self.get_quiz(self.order[self.quiz_num])
             self.quiz_num += 1
 
@@ -36,6 +35,7 @@ class QuizManage():
 
     def get_quiz(self, id):
         quiz = self.quiz.get_quiz_one(id)
+        print(quiz)
 
         return quiz
 
