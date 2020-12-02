@@ -4,13 +4,11 @@ import quizapp.models
 from quizapp.quizmanage import *
 import quizapp.config
 
-#app = Flask(__name__)
-
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object('quizapp.config.Config')
-    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+    # 本番と開発切り替え
+    app.config.from_object('quizapp.config.ProductConfig')
 
     init_db(app)
 

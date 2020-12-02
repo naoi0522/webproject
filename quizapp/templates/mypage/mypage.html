@@ -5,7 +5,8 @@
 <div class="uk-position-medium uk-position-top-left uk-margin-auto-top uk-child-width-auto uk-visible@s">
     <div class="userID uk-card uk-card-body uk-card-secondary">
         <div class="uk-card-title uk-text-bold uk-text-emphasis">
-            {{current_userID}}
+
+            {{current_userID}} <a href="{{ url_for('auth.delete_user') }}"><span uk-icon="icon: close"></span></a>
         </div>
     </div>
 </div>
@@ -57,6 +58,7 @@
 </div>
 
 <div>
-    <button class=" uk-button uk-button-secondary uk-button-small" onclick=" location.href='./../auth/delete'">ユーザを削除する</button>
+    <button class=" uk-button uk-button-secondary uk-button-small"
+        onclick=" location.href='./../auth/delete'">ユーザを削除する</button>
 </div>
 {% endblock %}
