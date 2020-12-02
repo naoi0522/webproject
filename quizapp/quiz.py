@@ -14,7 +14,7 @@ qmng = QuizManage()
 @bp.route('newquiz', methods=['GET'])
 def newquiz():
     qmng.new_quiz()
-    time.sleep(1)
+    time.sleep(1.5)
 
     quiz_num, problem = qmng.get_next_quiz()
     return render_template('quiz/quiz.html',

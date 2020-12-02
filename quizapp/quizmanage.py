@@ -26,6 +26,7 @@ class QuizManage():
     def get_next_quiz(self):
         if self.quiz_num < 10:
             self.current_quiz = self.get_quiz(self.order[self.quiz_num])
+            print(self.quiz_num)
             self.quiz_num += 1
             time.sleep(1)
 
