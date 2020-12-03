@@ -10,8 +10,8 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True,
                 static_folder='static', template_folder='templates')
     # 本番と開発切り替え ProductConfig <-> DevConfig
-    # app.config.from_object('quizapp.config.ProductConfig')
-    app.config.from_object('quizapp.config.DevConfig')
+    app.config.from_object('quizapp.config.ProductConfig')
+    # app.config.from_object('quizapp.config.DevConfig')
     init_db(app)
 
     @app.route('/', methods=['GET', 'POST'])
