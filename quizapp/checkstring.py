@@ -1,8 +1,10 @@
 class CheckString:
-    def trim_spaces(self, str):
+    @staticmethod
+    def trim_spaces(str):
         return str.replace(' ', '').replace('　', '')
 
-    def check_str_length(self, problem, length):
+    @staticmethod
+    def check_str_length(problem, length):
         if len(problem) >= length:
             return True
         else:

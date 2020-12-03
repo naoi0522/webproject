@@ -11,23 +11,30 @@
     <title>{{title}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../static/util.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.10/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='util.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/uikit.min.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 
 <body>
     <div class="uk-position-relative">
-        <div class="uk-background-fixed uk-background-cover flip-horizontal"
-            style="height: 100vh; background-image: url(../static/img/index1.jpg)">
+        <div class="uk-background-fixed uk-background-cover flip-horizontal" uk-img
+            style="height: 100vh; background-image: url(../static/img/index1.jpg);">
         </div>
         <div class="uk-position-top">
             <nav class="uk-navbar-container uk-navbar-transparent uk-light" uk-navbar>
+                <div class="uk-navbar-left">
+                    <div class="uk-visible@s">
+                        <a href="/">
+                            <img src="../static/img/logo.png" uk-img alt="" style="height: 50px; width: 150px;"></a>
+                    </div>
+                </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
                         <li class="uk-active"><a href="{{ url_for('quiz.newquiz') }}">クイズ</a></li>
                         {% if login %}
                         <li><a href="{{ url_for('quiz.registerquiz') }}">クイズ登録</a></li>
-                        <li><a href="{{ url_for('mypage.mypage') }}">マイページ</a></li>
+                        <li><a href="{{ url_for('mypage.mypage', user_id=current_userID ) }}">マイページ</a></li>
                         <li><a href="{{ url_for('auth.logout') }}">ログアウト</a></li>
                         {% else %}
                         <li><a href="{{ url_for('auth.login') }}">ログイン</a></li>
@@ -45,8 +52,8 @@
     <script src="" async defer></script>
 
     <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.10/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.10/dist/js/uikit-icons.min.js"></script>
+    <script src="{{ url_for('static', filename='js/uikit.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/uikit-icons.min.js') }}"></script>
 </body>
 
 </html>

@@ -10,23 +10,21 @@ class User(db.Model):
     password = db.Column(db.String(64))
     quizs = db.relationship('Quiz', backref='user')
 
-    def get_user_one(self, userID):
-        user = User.query.get(userID)
+    @classmethod
+    def get_user_one(cls, userID):
+        return cls.query.get(userID)
 
-        return user
+    @classmethod
+    def get_user_all(cls):
+        return cls.query.all()
 
-    def get_user_all(self):
-        user_list = User.query.all()
+    @classmethod
+    def user_count(cls):
+        return cls.query.count()
 
-        return user_list
-
-    def user_count(self):
-        user_count = User.query.count()
-
-        return user_count
-
-    def register_user(self, userID, password):
-        record = User(
+    @classmethod
+    def register_user(cls, userID, password):
+        record = cls(
             userID=userID,
             password=password
         )
@@ -34,14 +32,15 @@ class User(db.Model):
         db.session.add(record)
         db.session.commit()
 
-    def change_password(self, userID, password):
-        user = self.get_quiz_one(userID)
-
+    @classmethod
+    def change_password(cls, userID, password):
+        user = cls.get_user_one(userID)
         user.password = password
 
         db.session.commit()
 
-    def delete_user(self, userID):
-        db.session.query(User).filter(User.userID == userID).delete()
+    @classmethod
+    def delete_user(cls, userID):
+        cls.filter(cls.userID == userID).delete()
 
         db.session.commit()

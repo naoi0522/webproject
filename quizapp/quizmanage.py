@@ -1,86 +1,89 @@
+from flask_migrate import current
 from sqlalchemy.inspection import inspect
 from quizapp.models.quiz import Quiz
 from quizapp.checkstring import CheckString
 from sqlalchemy.sql.expression import func, select
 import random
+import json
 
 
 class QuizManage():
 
     def __init__(self):
-        self.quiz = Quiz()
-        self.cstr = CheckString()
+        pass
 
-    def new_quiz(self):
-        self.quiz_num = 0
-        self.correct_total = 0
-        self.set_order()
+    @classmethod
+    def new_quiz(cls):
+        return 0, 0, json.dumps(cls.set_order())
 
-    def set_quiz_count(self):
-        self.count = self.quiz.quiz_count()
+    @staticmethod
+    def set_quiz_count():
+        return Quiz.quiz_count()
 
-    def set_order(self):
-        self.order = random.sample(self.quiz.get_id_all(), 10)
+    @staticmethod
+    def set_order():
+        return random.sample(Quiz.get_id_all(), 10)
 
-    def get_next_quiz(self):
-        if self.quiz_num < 10:
-            self.current_quiz = self.get_quiz(self.order[self.quiz_num])
-            self.quiz_num += 1
+    @classmethod
+    def get_next_quiz(cls, quiz_num, order):
+        if quiz_num < 10:
+            current_quiz = cls.get_quiz(order[quiz_num])
 
-            return self.quiz_num, self.current_quiz.problem
+            return quiz_num + 1, current_quiz.problem
         else:
-            self.quiz_num = 0
-            return self.quiz_num, None
+            return 0, None
 
-    def get_quiz(self, id):
-        quiz = self.quiz.get_quiz_one(id)
+    @staticmethod
+    def get_quiz(id):
+        return Quiz.get_quiz_one(id)
 
-        return quiz
+    @staticmethod
+    def get_quiz_from_userID(userID):
+        return Quiz.get_quiz_from_userID(userID)
 
-    def get_quiz_from_userID(self, userID):
-        quiz_list = self.quiz.get_quiz_from_userID(userID)
-
-        return quiz_list
-
-    def get_correct_total(self):
-        return self.correct_total
-
-    def judge(self, ans):
+    @classmethod
+    def judge(cls, ans, quiz_num, correct_total, order):
         if ans == "True":
             ans = True
         else:
             ans = False
+        # get_next_quizによりquiz_numは加算されているため、1を引いて調整
+        current_quiz = cls.get_quiz(order[quiz_num - 1])
 
-        if ans == self.current_quiz.correct:
+        if ans == current_quiz.correct:
             result = True
-            self.correct_total += 1
+            correct_total += 1
         else:
             result = False
 
-        return result, self.quiz_num, self.current_quiz.problem
+        return result, correct_total, current_quiz.problem,
 
-    def register_quiz(self, problem, correct, userID):
-        problem = self.cstr.trim_spaces(problem)
+    @staticmethod
+    def register_quiz(problem, correct, userID):
+        problem = CheckString.trim_spaces(problem)
 
-        if self.cstr.check_str_length(problem, 6):
-            self.quiz.register_quiz(problem, correct, userID)
+        if CheckString.check_str_length(problem, 6):
+            Quiz.register_quiz(problem, correct, userID)
             # TODO クイズ追加on/off
             return True
         else:
             return False
 
-    def update_quiz(self, quizID, problem, correct):
-        problem = self.cstr.trim_spaces(problem)
+    @staticmethod
+    def update_quiz(quizID, problem, correct):
+        problem = CheckString.trim_spaces(problem)
 
-        if self.cstr.check_str_length(problem, 6):
-            #self.quiz.update_quiz(quizID, problem, correct)
+        if CheckString.check_str_length(problem, 6):
+            #Quiz.update_quiz(quizID, problem, correct)
             # TODO クイズ更新on/off
             return True
         else:
             return False
 
-    def delete_quiz(self, quizID):
-        self.quiz.delete_quiz_one(quizID)
+    @staticmethod
+    def delete_quiz(quizID):
+        Quiz.delete_quiz_one(quizID)
 
-    def delete_quiz_from_userID(self, userID):
-        self.quiz.delete_quiz_from_userID(userID)
+    @staticmethod
+    def delete_quiz_from_userID(userID):
+        Quiz.delete_quiz_from_userID(userID)

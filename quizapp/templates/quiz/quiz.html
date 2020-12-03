@@ -6,6 +6,7 @@
         <div class="uk-section-secondary uk-section-small">
             <div class="uk-container">
                 <h3 class="uk-text-center">
+                    <progress class="uk-progress" max="10" value="{{ quiz_num }}"></progress>
                     第{{quiz_num}}問
                 </h3>
                 <p class="problem uk-text-large">
@@ -15,10 +16,10 @@
                 <div class="ans_button">
                     <form action="/quiz/quiz" method="POST">
                         <div class="uk-text-center">
-                            <button class="uk-button uk-button-default" type="submit" class="" name="ans"
-                                value="True">〇</button>
-                            <button class="uk-button uk-button-default" type="submit" name="ans"
-                                value="False">×</button>
+                            <button class="uk-button uk-button-default uk-margin-right" type="submit" class=""
+                                name="ans" value="True"><span uk-icon="icon: check; ratio:2"></span></button>
+                            <button class="uk-button uk-button-default uk-margin-left" type="submit" name="ans"
+                                value="False"><span uk-icon="icon: close; ratio:2"></span></button>
                         </div>
                     </form>
                 </div>
@@ -38,9 +39,9 @@
                     <p class="uk-text-center">
                         あなたの答え :
                         {% if ans == "True" %}
-                        〇
+                        <span uk-icon="icon: check; ratio:2"></span>
                         {% else %}
-                        ×
+                        <span uk-icon="icon: close; ratio:2"></span>
                         {% endif %}
                     </p>
                 </div>
